@@ -27,3 +27,16 @@
 .main {
   padding-top: 70px;
 }
+
+.worldSVG {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 100%;
+  transform: rotate(180deg);
+  transform-origin: 52% 15%;
+
+}
+
+.worldSVG path {
+  fill: pink !important;
+}
