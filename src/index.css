@@ -12,3 +12,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.highcharts-series-group {
+  transform: rotate(180deg);
+  transform-origin: 50% 50%;
+}
+
+.highcharts-data-labels {
+  transform: rotate(180deg);
+  transform-origin: 49% 44%;
+}

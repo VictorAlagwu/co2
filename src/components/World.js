@@ -10,10 +10,25 @@ const options = {
         map: map
     },
     title: {
-        text: 'My map chart'
+        text: 'CO2 Emission World Map'
+    },
+    mapNavigation: {
+        enabled: true,
+        buttonOptions: {
+            verticalAlign: 'bottom'
+        }
     },
     series: [{
-        data: data
+        data: data,
+        states: {
+            hover: {
+                color: '#BADA55'
+            }
+        }
+        // dataLabels: {
+        //     enabled: true,
+        //     format: '{point.name}'
+        // }
     }]
 }
 

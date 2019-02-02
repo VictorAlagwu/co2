@@ -6,6 +6,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## TODO's
 * ~~Add Bootstrap 4,and ensure it is working~~
 * ~~Deploy to Netlify~~
-* Add the Map
+* ~~Add the Map~~
 * Made it Upside down
 * Login...
