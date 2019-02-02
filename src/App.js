@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import './App.css';
-
-import Map from './components/Map';
+import World from './components/World';
 
 class App extends Component {
   render() {
@@ -19,7 +18,8 @@ class App extends Component {
           <div className="main">
             <Row>
               <Col xs="12">
-                <Map />
+                {/* <Map /> */}
+                <World />
               </Col>
             </Row>
           </div>
