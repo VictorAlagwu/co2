@@ -4,8 +4,8 @@ import { Table } from 'reactstrap';
 class Emission extends Component {
     mapList = (country, i) => {
         return (
-            <tr>
-                <th scope="row">{ i + 1 }</th>
+            <tr key={i}>
+                <th scope="row">{ i }</th>
                 <td>{ country.name }</td>
                 <td>{ country.code }</td>
                 <td>{ country.value }</td>
