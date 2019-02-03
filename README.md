@@ -8,4 +8,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * ~~Deploy to Netlify~~
 * ~~Add the Map~~
 * ~~Made it Upside down~~
+* ~~Represent Data in Table~~
+* Implement Birth Rate Color Change
+* Implement Death Rate Color Change
 * Logic...
