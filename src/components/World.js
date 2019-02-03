@@ -1,45 +1,54 @@
 import React, { Component } from 'react';
+// import ReactDom from 'react-dom';
 import Highcharts from 'highcharts'
 import HC_map from 'highcharts/modules/map'
 import HighchartsReact from 'highcharts-react-official'
 import map from '../world.js';
 import data from '../data.js';
 
-const options = {
-    chart: {
-        map: map
-    },
-    title: {
-        text: 'CO2 Emission World Map'
-    },
-    mapNavigation: {
-        enabled: true,
-        buttonOptions: {
-            verticalAlign: 'bottom'
-        }
-    },
-    series: [{
-        data: data,
-        states: {
-            hover: {
-                color: '#BADA55'
-            }
-        }
-        // dataLabels: {
-        //     enabled: true,
-        //     format: '{point.name}'
-        // }
-    }]
-}
-
 class World extends Component {
-    
+    constructor() {
+        super()
+        this.state = {
+          map: data
+        }
+      }
     componentDidMount() {
+        
     }
+    
         
     render() {
         HC_map(Highcharts)
-        
+        const options = {
+            chart: {
+                map: map
+            },
+            title: {
+                text: 'CO2 Emission World Map'
+            },
+            mapNavigation: {
+                enabled: true,
+                buttonOptions: {
+                    verticalAlign: 'bottom'
+                }
+            },
+            series: [{
+                key: ['iso-a3', 'name', 'value', 'code'],
+                joinBy: 'iso-a3',
+                data: data,
+                states: {
+                    hover: {
+                        color: '#BADA55'
+                    }
+                }
+            }],
+            tooltip: { 
+                pointFormat: '<span>{point.iso-a3}, Country: <b>{point.name}</b>, Population: <b>{point.value}</b>, Code: <b>{point.code}</b></span>'
+           
+            }
+        }        
+       
         return (
             <div>
                 <div>
