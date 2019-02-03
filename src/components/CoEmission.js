@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
-import data from '../data.js';
 
 class Emission extends Component {
     mapList = (country, i) => {
@@ -14,7 +13,7 @@ class Emission extends Component {
         )
     }
     render() {
-        const listCountries = data.map(this.mapList)
+        const listCountries = this.props.mapData.map(this.mapList)
         return <div>
                  <Table>
                     <thead>

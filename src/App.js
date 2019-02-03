@@ -3,9 +3,15 @@ import { Container, Row, Col } from 'reactstrap';
 import './App.css';
 import World from './components/World';
 import Emission from './components/CoEmission';
-
+import data from './data.js';
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      mapData: data
+    }
+  }
   render() {
     return (
       <div className="App">
@@ -20,13 +26,13 @@ class App extends Component {
           <div className="main">
             <Row  style={{ height: 'auto'}}>
               <Col xs="12">
-                <World />
+                <World mapData={this.state.mapData}/>
               </Col>
             </Row>
             <hr />
             <Row>
               <Col xs="12">
-                <Emission />
+                <Emission mapData={this.state.mapData} />
               </Col>
             </Row>
           </div>
