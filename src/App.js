@@ -11,35 +11,54 @@ class App extends Component {
     this.state = {
       mapData: data
     }
+    
   }
-  render() {
-    return (
-      <div className="App">
-        <Container>
-          <div className="header">
-            <Row>
-              <Col sm="12">Header</Col>
-            </Row>
-          </div>
-          <br />
-          <hr />
-          <div className="main">
-            <Row  style={{ height: 'auto'}}>
-              <Col xs="12">
-                <World mapData={this.state.mapData}/>
-              </Col>
-            </Row>
+  //Separate Interval for each country
+
+  changePopulation()  {
+    // const newItem = {"iso-a3": "VIC", "name": "Victor", "value": 2332.08,"code": "VIC"}
+    // const data = [...this.state.mapData, newItem]
+    // this.setState({
+    //   mapData: data
+      
+    // })
+   
+  }
+  componentDidMount(){ 
+    // this.timer = setInterval(() => {
+		// 	this.tick()
+		// }, 1000)
+  }
+  
+    render() {
+      return (
+        <div className="App">
+          <Container>
+            <div className="header">
+              <Row>
+                <Col sm="12">Header</Col>
+              </Row>
+            </div>
+            <br />
             <hr />
-            <Row>
-              <Col xs="12">
-                <Emission mapData={this.state.mapData} />
-              </Col>
-            </Row>
-          </div>
-        </Container>
-      </div>
-    );
-  }
+            <div className="main">
+              <Row  style={{ height: 'auto'}}>
+                <Col xs="12">
+                  <World mapData={this.state.mapData}/>
+                </Col>
+              </Row>
+              <hr />
+              <Row>
+                <Col xs="12">
+                  <Emission mapData={this.state.mapData} changePopulation={this.changePopulation} />
+                </Col>
+              </Row>
+            </div>
+          </Container>
+        </div>
+      );
+    }
+ 
 }
 
 export default App;
