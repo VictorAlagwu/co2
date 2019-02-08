@@ -10,20 +10,32 @@ class App extends Component {
     super()
     this.state = {
       mapData: data
-    }
+    };
+    
     
   }
-  //Separate Interval for each country
+   //Separate Interval for each country
 
-  changePopulation()  {
-    // const newItem = {"iso-a3": "VIC", "name": "Victor", "value": 2332.08,"code": "VIC"}
-    // const data = [...this.state.mapData, newItem]
-    // this.setState({
-    //   mapData: data
-      
-    // })
-   
+  // You have to use "currying" to pass arguments functions passed as props.
+  // https://medium.freecodecamp.org/reactjs-pass-parameters-to-event-handlers-ca1f5c422b9
+  changePopulation = (idx) => (e) => { 
+
+    // This is a special form of setState() which provides a "copy" of state which you can mutate.
+    this.setState((state) => {
+
+        state.mapData[idx].value =  state.mapData[idx].value + 5 // Add 5 to population
+
+        // This still generates a error: Uncaught TypeError: Cannot read property '0' of undefined
+        // I think it's a bug with highmaps.
+        // Either way, you should separate the data for the list and the map into separate date
+        // and keep a the 2 letter country code as the key to link the 2 sets of data.
+        // That way you can mutate the population for each country without it interfering with the map
+        return {
+          'mapData': state.mapData,
+        }    
+    });
   }
+  
   componentDidMount(){ 
     // this.timer = setInterval(() => {
 		// 	this.tick()

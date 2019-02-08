@@ -4,6 +4,7 @@ import Highcharts from 'highcharts'
 import HC_map from 'highcharts/modules/map'
 import HighchartsReact from 'highcharts-react-official'
 import map from '../world.js';
+import data from '../data.js';
 
 
 class World extends Component {
@@ -31,7 +32,7 @@ class World extends Component {
             series: [{
                 key: ['iso-a3', 'name', 'value', 'code'],
                 joinBy: 'iso-a3',
-                data: this.props.mapData,
+                data: data,
                 states: {
                     hover: {
                         color: '#BADA55'

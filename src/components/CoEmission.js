@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Table } from 'reactstrap';
 
-class Emission extends Component {
+class Emission extends React.Component {
     mapList = (country, i) => {
         return (
             <tr key={i}>
                 <th scope="row">{ i }</th>
                 <td>{ country.name }</td>
                 <td>{ country.code }</td>
-                <td onMouseOver={this.props.changePopulation} >{ country.value }</td>
+                <td onMouseOver={this.props.changePopulation(i)} >{ country.value }</td>
             </tr>
         )
     }
