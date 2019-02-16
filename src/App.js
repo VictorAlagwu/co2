@@ -1,46 +1,104 @@
 import React, { Component } from 'react';
 import {Helmet} from "react-helmet";
 import { Container, Row, Col } from 'reactstrap';
-import 'd3';
+import d3 from 'd3';
 import 'topojson';
 import Datamap from 'datamaps';
-import './App.css';
+// import data from './data';
 
 
-var map;
+
+ 
 class App extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
-      // mapData: data,
       population: 0
     };
-    // this.changePopulation = this.changePopulation.bind(this);
-    // setInterval(this.changePopulation, 200);
+    
+    
   }
-  // changePopulation () {
-  //     var newPopulation = 0;
-  //     this.setState({population: this.state.population + newPopulation});
-  //   }
+
+  resize = () => {
+    if (this.worldMap) {
+        this.worldMap.resize();
+    }
+}
+
     componentDidMount() {
-      map = new Datamap({
-        element: document.getElementById("map"),
-        responsive: true,
-        projection: "mercator",
-        fills: {
-          defaultFill: "#333333"
-        },
-        geographyConfig: {
-          highlightBorderColor: "white"
-        }
-       });
-   
-       window.addEventListener("resize", function() {
-        map.resize();
-       });
+      this.drawMap();
     }
   
-  
+    componentDidUpdate() {
+      this.drawMap();
+    }
+
+
+    drawMap = () => {
+      var worldMap = new Datamap ({
+        element: document.getElementById("container"),
+        scope: 'world',
+      
+        responsive: true,
+        // dataType: 'json',
+        // dataURL: data,
+        projection: 'equirectangular',
+        fills: {
+          BIRTH: '#ffc107',
+          DEATH: '#dc3545',
+          defaultFill: "#000000a6"
+        },
+        data: {
+          RUS: {
+              fillKey: 'BIRTH',
+              numberOfThings: 2034
+          },
+          USA: {
+              fillKey: 'DEATH',
+              numberOfThings: 4981
+          }
+        },
+       
+        geographyConfig: {
+          borderColor: '#DEDEDE',
+          highlightBorderWidth: 2,
+          // don't change color on mouse hover
+          highlightFillColor: function(geo) {
+              return geo['fillColor'] || '#F5F5F5';
+          },
+          // only change border
+          highlightBorderColor: '#B7B7B7',
+          // show desired information in tooltip
+          popupTemplate: function(geo, data) {
+              // don't show tooltip if country don't present in dataset
+              if (!data) { return ; }
+              // tooltip content
+              return ['<div class="hoverinfo">',
+                  '<strong>', geo.properties.name, '</strong>',
+                  '<br>Count: <strong>', data.numberOfThings, '</strong>',
+                  '</div>'].join('');
+          }
+      }
+        });
+      var colors = d3.scale.category10();
+
+        window.setInterval(function() {
+          worldMap.updateChoropleth({
+            USA: colors(Math.random() * 10),
+            RUS: colors(Math.random() * 100),
+            AUS: { fillKey: 'BIRTH' },
+            BRA: colors(Math.random() * 50),
+            CAN: colors(Math.random() * 50),
+            ZAF: colors(Math.random() * 50),
+            IND: colors(Math.random() * 50),
+          });
+        }, 2000);
+      
+      window.addEventListener("resize", this.resize());
+      worldMap.legend();
+      this.worldMap = worldMap;
+    }
+
     render() {
       return (
         <div className="App">
@@ -50,18 +108,18 @@ class App extends Component {
             <link rel="canonical" href="http://mysite.com/example" />
           </Helmet>
           <Container>
-            <div className="header">
+            <div className="header text-center">
               <Row>
                 <Col sm="12">Header</Col>
               </Row>
             </div>
             <br />
             <hr />
+            
             <div className="main">
               <Row>
-                <Col xs="12" id="map">
-                  {/* <World /> */}
-                  
+                <Col xs="12">
+                  <div id="container"></div>
                 </Col>
               </Row>
               <hr />
@@ -71,7 +129,7 @@ class App extends Component {
                 </Col>
               </Row>
             </div>
-          </Container>
+          </Container> 
         </div>
       );
     }
