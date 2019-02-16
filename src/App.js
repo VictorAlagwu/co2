@@ -24,7 +24,7 @@ class App extends Component {
   //   }
     componentDidMount() {
       map = new Datamap({
-        element: document.getElementById("container"),
+        element: document.getElementById("map"),
         responsive: true,
         projection: "mercator",
         fills: {
@@ -49,7 +49,6 @@ class App extends Component {
             <title>CO2 Emission</title>
             <link rel="canonical" href="http://mysite.com/example" />
           </Helmet>
-          <div id="container"></div>
           <Container>
             <div className="header">
               <Row>
@@ -60,7 +59,7 @@ class App extends Component {
             <hr />
             <div className="main">
               <Row>
-                <Col xs="12">
+                <Col xs="12" id="map">
                   {/* <World /> */}
                   
                 </Col>
