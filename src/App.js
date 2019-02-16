@@ -1,50 +1,55 @@
 import React, { Component } from 'react';
+import {Helmet} from "react-helmet";
 import { Container, Row, Col } from 'reactstrap';
+import 'd3';
+import 'topojson';
+import Datamap from 'datamaps';
 import './App.css';
-import World from './components/World';
-import Emission from './components/CoEmission';
-import data from './data.js';
 
+
+var map;
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      mapData: data
+      // mapData: data,
+      population: 0
     };
-    
-    
+    // this.changePopulation = this.changePopulation.bind(this);
+    // setInterval(this.changePopulation, 200);
   }
-   //Separate Interval for each country
-
-  // You have to use "currying" to pass arguments functions passed as props.
-  // https://medium.freecodecamp.org/reactjs-pass-parameters-to-event-handlers-ca1f5c422b9
-  changePopulation = (idx) => (e) => { 
-
-    // This is a special form of setState() which provides a "copy" of state which you can mutate.
-    this.setState((state) => {
-
-        state.mapData[idx].value =  state.mapData[idx].value + 5 // Add 5 to population
-
-        // This still generates a error: Uncaught TypeError: Cannot read property '0' of undefined
-        // I think it's a bug with highmaps.
-        // Either way, you should separate the data for the list and the map into separate date
-        // and keep a the 2 letter country code as the key to link the 2 sets of data.
-        // That way you can mutate the population for each country without it interfering with the map
-        return {
-          'mapData': state.mapData,
-        }    
-    });
-  }
+  // changePopulation () {
+  //     var newPopulation = 0;
+  //     this.setState({population: this.state.population + newPopulation});
+  //   }
+    componentDidMount() {
+      map = new Datamap({
+        element: document.getElementById("container"),
+        responsive: true,
+        projection: "mercator",
+        fills: {
+          defaultFill: "#333333"
+        },
+        geographyConfig: {
+          highlightBorderColor: "white"
+        }
+       });
+   
+       window.addEventListener("resize", function() {
+        map.resize();
+       });
+    }
   
-  componentDidMount(){ 
-    // this.timer = setInterval(() => {
-		// 	this.tick()
-		// }, 1000)
-  }
   
     render() {
       return (
         <div className="App">
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>CO2 Emission</title>
+            <link rel="canonical" href="http://mysite.com/example" />
+          </Helmet>
+          <div id="container"></div>
           <Container>
             <div className="header">
               <Row>
@@ -54,15 +59,16 @@ class App extends Component {
             <br />
             <hr />
             <div className="main">
-              <Row  style={{ height: 'auto'}}>
+              <Row>
                 <Col xs="12">
-                  <World mapData={this.state.mapData}/>
+                  {/* <World /> */}
+                  
                 </Col>
               </Row>
               <hr />
               <Row>
                 <Col xs="12">
-                  <Emission mapData={this.state.mapData} changePopulation={this.changePopulation} />
+                  {/* <Emission mapData={this.state.mapData} population={this.state.population} changePopulation={this.changePopulation} /> */}
                 </Col>
               </Row>
             </div>

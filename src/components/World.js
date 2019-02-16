@@ -8,7 +8,12 @@ import data from '../data.js';
 
 
 class World extends Component {
-  
+    constructor() {
+        super()
+        this.state = {
+          world: data
+        };
+    }
     componentDidMount() {
         
     }
@@ -32,7 +37,7 @@ class World extends Component {
             series: [{
                 key: ['iso-a3', 'name', 'value', 'code'],
                 joinBy: 'iso-a3',
-                data: data,
+                data: this.state.world,
                 states: {
                     hover: {
                         color: '#BADA55'

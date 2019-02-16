@@ -8,7 +8,7 @@ class Emission extends React.Component {
                 <th scope="row">{ i }</th>
                 <td>{ country.name }</td>
                 <td>{ country.code }</td>
-                <td onMouseOver={this.props.changePopulation(i)} >{ country.value }</td>
+                <td></td>
             </tr>
         )
     }
