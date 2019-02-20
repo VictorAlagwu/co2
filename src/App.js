@@ -1,38 +1,31 @@
 import React, { Component } from 'react';
 import {Helmet} from "react-helmet";
 import { Container, Row, Col } from 'reactstrap';
-import d3 from 'd3';
+import 'd3';
 import 'topojson';
 import Datamap from 'datamaps';
-// import data from './data';
+import countries from './data';
 
-
-
- 
+var population = countries;
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      population: 0
-    };
-    
-    
-  }
-
-  resize = () => {
-    if (this.worldMap) {
-        this.worldMap.resize();
-    }
-}
-
-    componentDidMount() {
-      this.drawMap();
-    }
-  
-    componentDidUpdate() {
-      this.drawMap();
+    constructor(props) {
+      super(props)
+      this.myMap = React.createRef();
+      this.state = {
+        population: population,
+        myMap: this.myMap
+      };
+      
+      this.updateMap = this.updateMap.bind(this);
+      setInterval(this.updateMap, 1000);
+      
     }
 
+    resize = () => {
+      if (this.worldMap) {
+          this.worldMap.resize();
+      }
+    }
 
     drawMap = () => {
       var worldMap = new Datamap ({
@@ -40,25 +33,12 @@ class App extends Component {
         scope: 'world',
       
         responsive: true,
-        // dataType: 'json',
-        // dataURL: data,
         projection: 'equirectangular',
         fills: {
           BIRTH: '#ffc107',
           DEATH: '#dc3545',
           defaultFill: "#000000a6"
         },
-        data: {
-          RUS: {
-              fillKey: 'BIRTH',
-              numberOfThings: 2034
-          },
-          USA: {
-              fillKey: 'DEATH',
-              numberOfThings: 4981
-          }
-        },
-       
         geographyConfig: {
           borderColor: '#DEDEDE',
           highlightBorderWidth: 2,
@@ -80,25 +60,48 @@ class App extends Component {
           }
       }
         });
-      var colors = d3.scale.category10();
-
-        window.setInterval(function() {
-          worldMap.updateChoropleth({
-            USA: colors(Math.random() * 10),
-            RUS: colors(Math.random() * 100),
-            AUS: { fillKey: 'BIRTH' },
-            BRA: colors(Math.random() * 50),
-            CAN: colors(Math.random() * 50),
-            ZAF: colors(Math.random() * 50),
-            IND: colors(Math.random() * 50),
-          });
-        }, 2000);
-      
+     
       window.addEventListener("resize", this.resize());
       worldMap.legend();
       this.worldMap = worldMap;
     }
+    
 
+    updateMap() {
+      console.log('Running');
+      
+      var changePopulation = {};
+
+      const keys = Object.keys(this.state.population);
+      const randomIndex = keys[Math.floor(Math.random() * keys.length)];
+      const item = this.state.population[randomIndex];
+      console.log(changePopulation);
+      changePopulation[item.codes] = '#ffc107';
+      // for (var x = 0; x < population.length; x++) {
+      //   changePopulation[population[x]['codes']] = '#ffc107';
+      //   population[x]["value"]++;
+      //   console.log(changePopulation[population[x]['codes']]);
+      // }
+    //  console.log(changePopulation);
+      // this.setState({population: population});
+      // this.worldMap.updateChoropleth({
+      //     USA: '#ffc107'
+      // }, {reset: true});
+      this.worldMap.updateChoropleth(changePopulation, {reset: true});
+    }
+    componentDidMount() {
+      this.drawMap();
+      console.log('Mounting');
+    }
+   //Forloop : select a random country, and add random timezone different country
+    
+    clear = () => {
+      const mapContainer = this.myMap.current;
+
+      for (const child of Array.from(mapContainer.childNodes)) {
+          mapContainer.removeChild(child);
+      }
+    }
     render() {
       return (
         <div className="App">
@@ -119,13 +122,12 @@ class App extends Component {
             <div className="main">
               <Row>
                 <Col xs="12">
-                  <div id="container"></div>
+                  <div id="container" ref={this.myMap} />
                 </Col>
               </Row>
               <hr />
               <Row>
                 <Col xs="12">
-                  {/* <Emission mapData={this.state.mapData} population={this.state.population} changePopulation={this.changePopulation} /> */}
                 </Col>
               </Row>
             </div>
