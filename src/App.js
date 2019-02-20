@@ -16,8 +16,12 @@ class App extends Component {
         myMap: this.myMap
       };
       
-      this.updateMap = this.updateMap.bind(this);
-      setInterval(this.updateMap, 1000);
+      
+      this.birthMap = this.birthMap.bind(this);
+      setInterval(this.birthMap, 1000);
+
+      this.deathMap = this.deathMap.bind(this);
+      setInterval(this.deathMap, 2000);
       
     }
 
@@ -67,7 +71,7 @@ class App extends Component {
     }
     
 
-    updateMap() {
+    birthMap() {
       console.log('Running');
       
       var changePopulation = {};
@@ -77,18 +81,24 @@ class App extends Component {
       const item = this.state.population[randomIndex];
       console.log(changePopulation);
       changePopulation[item.codes] = '#ffc107';
-      // for (var x = 0; x < population.length; x++) {
-      //   changePopulation[population[x]['codes']] = '#ffc107';
-      //   population[x]["value"]++;
-      //   console.log(changePopulation[population[x]['codes']]);
-      // }
-    //  console.log(changePopulation);
-      // this.setState({population: population});
-      // this.worldMap.updateChoropleth({
-      //     USA: '#ffc107'
-      // }, {reset: true});
+     
       this.worldMap.updateChoropleth(changePopulation, {reset: true});
     }
+
+    deathMap() {
+      console.log('Running');
+      
+      var changePopulation = {};
+
+      const keys = Object.keys(this.state.population);
+      const randomIndex = keys[Math.floor(Math.random() * keys.length)];
+      const item = this.state.population[randomIndex];
+      console.log(changePopulation);
+      changePopulation[item.codes] = '#dc3545';
+     
+      this.worldMap.updateChoropleth(changePopulation, {reset: true});
+    }
+
     componentDidMount() {
       this.drawMap();
       console.log('Mounting');
