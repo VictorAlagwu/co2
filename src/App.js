@@ -7,13 +7,18 @@ import Datamap from 'datamaps';
 import countries from './data';
 
 var population = countries;
+var birthRatePerSec = 0;
+var deathRatePerSec = 0;
+
+
 class App extends Component {
     constructor(props) {
       super(props)
       this.myMap = React.createRef();
       this.state = {
         population: population,
-        myMap: this.myMap
+        birthRatePerSec: birthRatePerSec,
+        deathRatePerSec: deathRatePerSec
       };
       
       
@@ -21,7 +26,7 @@ class App extends Component {
       setInterval(this.birthMap, 1000);
 
       this.deathMap = this.deathMap.bind(this);
-      setInterval(this.deathMap, 2000);
+      setInterval(this.deathMap, 1500);
       
     }
 
@@ -79,8 +84,19 @@ class App extends Component {
       const keys = Object.keys(this.state.population);
       const randomIndex = keys[Math.floor(Math.random() * keys.length)];
       const item = this.state.population[randomIndex];
-      console.log(changePopulation);
+
+      console.log('Before ' + item.value );
+      item.value += 1; 
+      console.log('After ' + item.value );
+      var birthRate = Math.round(item.value/10);
+      var newBirthRatePerSec = birthRate*item.value/31557600000;
+
+      console.log(birthRate);
+      this.setState( (prevState, props) => ({
+        birthRatePerSec: prevState.birthRatePerSec + newBirthRatePerSec
+      }));
       changePopulation[item.codes] = '#ffc107';
+
      
       this.worldMap.updateChoropleth(changePopulation, {reset: true});
     }
@@ -93,7 +109,18 @@ class App extends Component {
       const keys = Object.keys(this.state.population);
       const randomIndex = keys[Math.floor(Math.random() * keys.length)];
       const item = this.state.population[randomIndex];
-      console.log(changePopulation);
+      
+      console.log('Before ' + item.value );
+      item.value += 1; 
+      console.log('After ' + item.value );
+      var deathRate = Math.round(item.value/10);
+      var newDeathRatePerSec = deathRate*item.value/31557600000;
+
+      console.log(deathRate);
+      this.setState( (prevState, props) => ({
+        deathRatePerSec: newDeathRatePerSec - prevState.deathRatePerSec
+      }));
+
       changePopulation[item.codes] = '#dc3545';
      
       this.worldMap.updateChoropleth(changePopulation, {reset: true});
@@ -101,7 +128,7 @@ class App extends Component {
 
     componentDidMount() {
       this.drawMap();
-      console.log('Mounting');
+      console.log('moun');
     }
    //Forloop : select a random country, and add random timezone different country
     
@@ -138,6 +165,9 @@ class App extends Component {
               <hr />
               <Row>
                 <Col xs="12">
+                  BirthRate Per Second {this.state.birthRatePerSec}
+                  <p>DeathRate per Second {this.state.deathRatePerSec}</p>
+                  
                 </Col>
               </Row>
             </div>
