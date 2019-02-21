@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'reactstrap';
 import 'd3';
 import 'topojson';
 import Datamap from 'datamaps';
+import update from 'immutability-helper';
 import countries from './data';
 
 var population = countries;
@@ -77,7 +78,7 @@ class App extends Component {
     
 
     birthMap() {
-      console.log('Running');
+      console.log('BirthMAP');
       
       var changePopulation = {};
 
@@ -85,15 +86,17 @@ class App extends Component {
       const randomIndex = keys[Math.floor(Math.random() * keys.length)];
       const item = this.state.population[randomIndex];
 
-      console.log('Before ' + item.value );
-      item.value += 1; 
-      console.log('After ' + item.value );
-      var birthRate = Math.round(item.value/10);
-      var newBirthRatePerSec = birthRate*item.value/31557600000;
-
-      console.log(birthRate);
+      // console.log('Before ' + item.value );
+      var oldPopulation = item.value;
+      var newPopulationValue = item.value + 1; 
+     
+      var birthRate = Math.round(newPopulationValue/10);
+      var newBirthRatePerSec = birthRate*newPopulationValue/31557600000;
+      console.log('After Birth Population for ' + item.name + ' ' + newPopulationValue);
+      console.log('Before Birth Previous Population Value ' + oldPopulation);
       this.setState( (prevState, props) => ({
-        birthRatePerSec: prevState.birthRatePerSec + newBirthRatePerSec
+        birthRatePerSec: prevState.birthRatePerSec + newBirthRatePerSec,
+        population: update(prevState.population, {[randomIndex]: {'value': {$set: newPopulationValue}}})
       }));
       changePopulation[item.codes] = '#ffc107';
 
@@ -102,23 +105,25 @@ class App extends Component {
     }
 
     deathMap() {
-      console.log('Running');
       
       var changePopulation = {};
 
       const keys = Object.keys(this.state.population);
       const randomIndex = keys[Math.floor(Math.random() * keys.length)];
-      const item = this.state.population[randomIndex];
       
-      console.log('Before ' + item.value );
-      item.value += 1; 
-      console.log('After ' + item.value );
+      const item = this.state.population[randomIndex];
+      var oldPopulation = item.value; 
+      var decreasePopulation = item.value -= 1; 
       var deathRate = Math.round(item.value/10);
       var newDeathRatePerSec = deathRate*item.value/31557600000;
 
-      console.log(deathRate);
+      console.log('After Death Population for ' + item.name + ' ' + decreasePopulation);
+      console.log('Before Death Previous Population Value ' + oldPopulation);
+
+      // console.log(deathRate);
       this.setState( (prevState, props) => ({
-        deathRatePerSec: newDeathRatePerSec - prevState.deathRatePerSec
+        deathRatePerSec: newDeathRatePerSec - prevState.deathRatePerSec,
+        population: update(prevState.population, {[randomIndex]: {'value': {$set: decreasePopulation}}})
       }));
 
       changePopulation[item.codes] = '#dc3545';
