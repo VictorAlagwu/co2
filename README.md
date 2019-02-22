@@ -3,6 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Project URL: 
     https://reactco2emission.netlify.com/
+
 ## TODO's	In the project directory, you can run:
 * ~~Add Bootstrap 4,and ensure it is working~~	
  * ~~Deploy to Netlify~~
@@ -11,4 +12,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * ~~Represent Data in Table~~	
 * ~~Implement Birth Rate Color Change~~	
 * ~~Implement Death Rate Color Change~~
+* Tabular representation
+* Get Birth Rate for individual countries
 * Logic...

@@ -1,4 +1,4 @@
-var data = [
+[
 	{
 		"codes": "ABW",
 		"name": "Aruba",
@@ -1331,6 +1331,4 @@ var data = [
 		"population": 11669000,
 		"code": "ZW"
 	}
-];
-
-export default data;
+]

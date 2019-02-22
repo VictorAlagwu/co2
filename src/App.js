@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Helmet} from "react-helmet";
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Table} from 'reactstrap';
 import 'd3';
 import 'topojson';
 import Datamap from 'datamaps';
@@ -45,13 +45,11 @@ class App extends Component {
       var worldMap = new Datamap ({
         element: document.getElementById("container"),
         scope: 'world',
-      
+        data: countries,
         responsive: true,
         projection: 'equirectangular',
         fills: {
-          BIRTH: '#ffc107',
-          DEATH: '#dc3545',
-          defaultFill: "#000000a6"
+          defaultFill: "#333333"
         },
         geographyConfig: {
           borderColor: '#DEDEDE',
@@ -66,10 +64,11 @@ class App extends Component {
           popupTemplate: function(geo, data) {
               // don't show tooltip if country don't present in dataset
               if (!data) { return ; }
+              console.log(data);
               // tooltip content
               return ['<div class="hoverinfo">',
                   '<strong>', geo.properties.name, '</strong>',
-                  '<br>Count: <strong>', data.numberOfThings, '</strong>',
+                  '<br>Count: <strong>', data.population, '</strong>',
                   '</div>'].join('');
           }
       }
@@ -82,8 +81,7 @@ class App extends Component {
     
 
     birthMap() {
-      console.log('BirthMAP');
-      
+     
       var changePopulation = {};
 
       const keys = Object.keys(this.state.population);
@@ -97,16 +95,18 @@ class App extends Component {
       var birthRate = Math.round(newPopulationValue/1000);
       var newBirthRatePerSec = Math.round(birthRate*(newPopulationValue/31557600000));
 
-      console.log('After Birth Population for ' + item.name + ' ' + newPopulationValue);
-      console.log('Before Birth Previous Population Value ' + oldPopulation);
+      // console.log('After Birth Population for ' + item.name + ' ' + newPopulationValue);
+      // console.log('Before Birth Previous Population Value ' + oldPopulation);
       this.setState( (prevState, props) => ({
         birthRatePerSec: prevState.birthRatePerSec + newBirthRatePerSec,
         population: update(prevState.population, {[randomIndex]: {'population': {$set: newPopulationValue}}}),
         birthCount: birthCount++
       }));
       changePopulation[item.codes] = '#ffc107';
+      changePopulation['population'] = item.population;
 
-     
+      console.log(changePopulation);
+      
       this.worldMap.updateChoropleth(changePopulation, {reset: true});
     }
 
@@ -123,8 +123,8 @@ class App extends Component {
       var deathRate = Math.round(item.population/1000);
       var newDeathRatePerSec = Math.round(deathRate*(item.population/31557600000));
 
-      console.log('After Death Population for ' + item.name + ' ' + decreasePopulation);
-      console.log('Before Death Previous Population Value ' + oldPopulation);
+      // console.log('After Death Population for ' + item.name + ' ' + decreasePopulation);
+      // console.log('Before Death Previous Population Value ' + oldPopulation);
 
       // console.log(deathRate);
       this.setState( (prevState, props) => ({
@@ -140,7 +140,7 @@ class App extends Component {
 
     componentDidMount() {
       this.drawMap();
-      console.log('moun');
+      console.log('mount');
     }
    //Forloop : select a random country, and add random timezone different country
     
@@ -152,6 +152,22 @@ class App extends Component {
       }
     }
     render() {
+      var mapList  = (country, i) => {
+          return (
+              <tr key={i}>
+                  <th scope="row">{ country.name }</th>
+                  <td>{ country.code }</td>
+                  <td>Emission</td>
+                  <td>{ country.population }</td>
+                  <td>birthrate</td>
+                  <td>death rate</td>
+              </tr>
+            )
+        }
+
+        var listCountries  = this.state.population.map(mapList)
+       
+     
       return (
         <div className="App">
           <Helmet>
@@ -162,10 +178,9 @@ class App extends Component {
           <Container>
             <div className="header text-center">
               <Row>
-                <Col sm="12">Header</Col>
+                <Col sm="12">CO2 Map - Birth and Death Rate</Col>
               </Row>
             </div>
-            <br />
             <hr />
             
             <div className="main">
@@ -177,10 +192,27 @@ class App extends Component {
               <hr />
               <Row>
                 <Col xs="12">
-                  BirthRate Per Second {this.state.birthRatePerSec}
-                  <p>BirthCount: {this.state.birthCount}</p>
-                  <p>DeathRate per Second {this.state.deathRatePerSec}</p>
-                  <p>DeathCount: {this.state.deathCount}</p>
+                  <Row>
+                    <Col sm="12" className="text-center">
+                      <p className="">BirthCount:  {this.state.birthCount}</p>
+                      <p>DeathCount: {this.state.deathCount}</p>
+                    </Col>
+                  </Row>
+                  <Table>
+                      <thead>
+                          <tr>
+                              <th>Country</th>
+                              <th>Country Code</th>
+                              <th>CO2 Emissions per capital</th>
+                              <th>Population</th>
+                              <th>DeathRate </th>
+                              <th>BirthRate </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          { listCountries }
+                      </tbody>
+                  </Table>
                 </Col>
               </Row>
             </div>
