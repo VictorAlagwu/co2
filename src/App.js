@@ -87,8 +87,8 @@ class App extends Component {
       const item = this.state.population[randomIndex];
 
       // console.log('Before ' + item.value );
-      var oldPopulation = item.value;
-      var newPopulationValue = item.value + 1; 
+      var oldPopulation = item.population;
+      var newPopulationValue = item.population + 1; 
      
       var birthRate = Math.round(newPopulationValue/10);
       var newBirthRatePerSec = birthRate*newPopulationValue/31557600000;
@@ -96,7 +96,7 @@ class App extends Component {
       console.log('Before Birth Previous Population Value ' + oldPopulation);
       this.setState( (prevState, props) => ({
         birthRatePerSec: prevState.birthRatePerSec + newBirthRatePerSec,
-        population: update(prevState.population, {[randomIndex]: {'value': {$set: newPopulationValue}}})
+        population: update(prevState.population, {[randomIndex]: {'population': {$set: newPopulationValue}}})
       }));
       changePopulation[item.codes] = '#ffc107';
 
@@ -112,10 +112,10 @@ class App extends Component {
       const randomIndex = keys[Math.floor(Math.random() * keys.length)];
       
       const item = this.state.population[randomIndex];
-      var oldPopulation = item.value; 
-      var decreasePopulation = item.value -= 1; 
-      var deathRate = Math.round(item.value/10);
-      var newDeathRatePerSec = deathRate*item.value/31557600000;
+      var oldPopulation = item.population; 
+      var decreasePopulation = item.population -= 1; 
+      var deathRate = Math.round(item.population/10);
+      var newDeathRatePerSec = deathRate*item.population/31557600000;
 
       console.log('After Death Population for ' + item.name + ' ' + decreasePopulation);
       console.log('Before Death Previous Population Value ' + oldPopulation);
@@ -123,7 +123,7 @@ class App extends Component {
       // console.log(deathRate);
       this.setState( (prevState, props) => ({
         deathRatePerSec: newDeathRatePerSec - prevState.deathRatePerSec,
-        population: update(prevState.population, {[randomIndex]: {'value': {$set: decreasePopulation}}})
+        population: update(prevState.population, {[randomIndex]: {'population': {$set: decreasePopulation}}})
       }));
 
       changePopulation[item.codes] = '#dc3545';
