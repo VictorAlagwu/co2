@@ -9,7 +9,9 @@ import countries from './data';
 
 var population = countries;
 var birthRatePerSec = 0;
+var birthCount = 0;
 var deathRatePerSec = 0;
+var deathCount = 0;
 
 
 class App extends Component {
@@ -19,7 +21,9 @@ class App extends Component {
       this.state = {
         population: population,
         birthRatePerSec: birthRatePerSec,
-        deathRatePerSec: deathRatePerSec
+        deathRatePerSec: deathRatePerSec,
+        birthCount: birthCount,
+        deathCount: deathCount
       };
       
       
@@ -90,13 +94,15 @@ class App extends Component {
       var oldPopulation = item.population;
       var newPopulationValue = item.population + 1; 
      
-      var birthRate = Math.round(newPopulationValue/10);
-      var newBirthRatePerSec = birthRate*newPopulationValue/31557600000;
+      var birthRate = Math.round(newPopulationValue/1000);
+      var newBirthRatePerSec = Math.round(birthRate*(newPopulationValue/31557600000));
+
       console.log('After Birth Population for ' + item.name + ' ' + newPopulationValue);
       console.log('Before Birth Previous Population Value ' + oldPopulation);
       this.setState( (prevState, props) => ({
         birthRatePerSec: prevState.birthRatePerSec + newBirthRatePerSec,
-        population: update(prevState.population, {[randomIndex]: {'population': {$set: newPopulationValue}}})
+        population: update(prevState.population, {[randomIndex]: {'population': {$set: newPopulationValue}}}),
+        birthCount: birthCount++
       }));
       changePopulation[item.codes] = '#ffc107';
 
@@ -114,8 +120,8 @@ class App extends Component {
       const item = this.state.population[randomIndex];
       var oldPopulation = item.population; 
       var decreasePopulation = item.population -= 1; 
-      var deathRate = Math.round(item.population/10);
-      var newDeathRatePerSec = deathRate*item.population/31557600000;
+      var deathRate = Math.round(item.population/1000);
+      var newDeathRatePerSec = Math.round(deathRate*(item.population/31557600000));
 
       console.log('After Death Population for ' + item.name + ' ' + decreasePopulation);
       console.log('Before Death Previous Population Value ' + oldPopulation);
@@ -123,7 +129,8 @@ class App extends Component {
       // console.log(deathRate);
       this.setState( (prevState, props) => ({
         deathRatePerSec: newDeathRatePerSec - prevState.deathRatePerSec,
-        population: update(prevState.population, {[randomIndex]: {'population': {$set: decreasePopulation}}})
+        population: update(prevState.population, {[randomIndex]: {'population': {$set: decreasePopulation}}}),
+        deathCount: deathCount++
       }));
 
       changePopulation[item.codes] = '#dc3545';
@@ -171,8 +178,9 @@ class App extends Component {
               <Row>
                 <Col xs="12">
                   BirthRate Per Second {this.state.birthRatePerSec}
+                  <p>BirthCount: {this.state.birthCount}</p>
                   <p>DeathRate per Second {this.state.deathRatePerSec}</p>
-                  
+                  <p>DeathCount: {this.state.deathCount}</p>
                 </Col>
               </Row>
             </div>
