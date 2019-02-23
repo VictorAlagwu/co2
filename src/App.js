@@ -14,24 +14,31 @@ var deathRatePerSec = 0;
 var deathCount = 0;
 
 
+
+
+for (var x = 0; x < population.length; x++) {
+
+  population[x]["deathRate"] = 0;
+}
+//Each Country get its own timer, then inside a forloop, we run different for a country
 class App extends Component {
     constructor(props) {
       super(props)
       this.myMap = React.createRef();
       this.state = {
         population: population,
-        birthRatePerSec: birthRatePerSec,
+        nga: 111506000,
         deathRatePerSec: deathRatePerSec,
         birthCount: birthCount,
         deathCount: deathCount
       };
       
       
-      this.birthMap = this.birthMap.bind(this);
       setInterval(this.birthMap, 1000);
 
       this.deathMap = this.deathMap.bind(this);
       setInterval(this.deathMap, 1500);
+
       
     }
 
@@ -64,7 +71,6 @@ class App extends Component {
           popupTemplate: function(geo, data) {
               // don't show tooltip if country don't present in dataset
               if (!data) { return ; }
-              console.log(data);
               // tooltip content
               return ['<div class="hoverinfo">',
                   '<strong>', geo.properties.name, '</strong>',
@@ -79,31 +85,44 @@ class App extends Component {
       this.worldMap = worldMap;
     }
     
+    testMap = () => {
+      var randomNum = Math.random() ;
+      var birthRateNGR = 38.9;
+      
+      var birthRatePerSecNGR = birthRateNGR*this.state.nga/31557600000;
+      console.log(randomNum < birthRatePerSecNGR, randomNum,birthRatePerSecNGR);
+      if (randomNum < birthRatePerSecNGR) {
+        this.setState((prevState, props) => {
+          return {
+            nga: prevState.nga++
+          }
+        })
+      }
+      
+    }
 
-    birthMap() {
+
+    birthMap = () => {
      
       var changePopulation = {};
+      for (var x = 0; x < population.length; x++) {
+        var randomNumber = Math.floor(Math.random() * 10) + 1;
+       
+        var birthRatePerSec = population[x]['birthRate'] * population[x]['population']/31557600000;
+        changePopulation['population'] = population[x]['population'];
 
-      const keys = Object.keys(this.state.population);
-      const randomIndex = keys[Math.floor(Math.random() * keys.length)];
-      const item = this.state.population[randomIndex];
-
-      // console.log('Before ' + item.value );
-      var oldPopulation = item.population;
-      var newPopulationValue = item.population + 1; 
-     
-      var birthRate = Math.round(newPopulationValue/1000);
-      var newBirthRatePerSec = Math.round(birthRate*(newPopulationValue/31557600000));
-
-      // console.log('After Birth Population for ' + item.name + ' ' + newPopulationValue);
-      // console.log('Before Birth Previous Population Value ' + oldPopulation);
+        // console.log('BirthRatePerSec for', population[x]['name'], birthRatePerSec);
+         // Increment One to Country Population if random number is less than BPS
+        if ( birthRatePerSec > randomNumber) {
+            changePopulation[population[x]['codes']] = '#ffc107';
+            population[x]['population']++;
+        }
+      }
       this.setState( (prevState, props) => ({
-        birthRatePerSec: prevState.birthRatePerSec + newBirthRatePerSec,
-        population: update(prevState.population, {[randomIndex]: {'population': {$set: newPopulationValue}}}),
+        population: prevState.population,
         birthCount: birthCount++
       }));
-      changePopulation[item.codes] = '#ffc107';
-      changePopulation['population'] = item.population;
+      
 
       console.log(changePopulation);
       
@@ -118,15 +137,13 @@ class App extends Component {
       const randomIndex = keys[Math.floor(Math.random() * keys.length)];
       
       const item = this.state.population[randomIndex];
+
       var oldPopulation = item.population; 
       var decreasePopulation = item.population -= 1; 
       var deathRate = Math.round(item.population/1000);
       var newDeathRatePerSec = Math.round(deathRate*(item.population/31557600000));
 
-      // console.log('After Death Population for ' + item.name + ' ' + decreasePopulation);
-      // console.log('Before Death Previous Population Value ' + oldPopulation);
-
-      // console.log(deathRate);
+      item.deathRate++;
       this.setState( (prevState, props) => ({
         deathRatePerSec: newDeathRatePerSec - prevState.deathRatePerSec,
         population: update(prevState.population, {[randomIndex]: {'population': {$set: decreasePopulation}}}),
@@ -140,7 +157,9 @@ class App extends Component {
 
     componentDidMount() {
       this.drawMap();
-      console.log('mount');
+      // console.log('mount');
+
+      setInterval(this.testMap, 1000);
     }
    //Forloop : select a random country, and add random timezone different country
     
@@ -159,8 +178,8 @@ class App extends Component {
                   <td>{ country.code }</td>
                   <td>Emission</td>
                   <td>{ country.population }</td>
-                  <td>birthrate</td>
-                  <td>death rate</td>
+                  <td>{ country.birthRate }</td>
+                  <td>{ country.deathRate }</td>
               </tr>
             )
         }
@@ -205,8 +224,8 @@ class App extends Component {
                               <th>Country Code</th>
                               <th>CO2 Emissions per capital</th>
                               <th>Population</th>
-                              <th>DeathRate </th>
-                              <th>BirthRate </th>
+                              <th>Birth Rate </th>
+                              <th>Death Rate </th>
                           </tr>
                       </thead>
                       <tbody>
