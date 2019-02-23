@@ -73,8 +73,8 @@ class App extends Component {
               if (!data) { return ; }
               // tooltip content
               return ['<div class="hoverinfo">',
-                  '<strong>', geo.properties.name, '</strong>',
-                  '<br>Count: <strong>', data.population, '</strong>',
+                  '<strong>', geo.properties.name, '</strong>'
+                 ,
                   '</div>'].join('');
           }
       }
