@@ -8,18 +8,9 @@ import update from 'immutability-helper';
 import countries from './data';
 
 var population = countries;
-var birthRatePerSec = 0;
 var birthCount = 0;
-var deathRatePerSec = 0;
 var deathCount = 0;
 
-
-
-
-for (var x = 0; x < population.length; x++) {
-
-  population[x]["deathRate"] = 0;
-}
 //Each Country get its own timer, then inside a forloop, we run different for a country
 class App extends Component {
     constructor(props) {
@@ -28,18 +19,11 @@ class App extends Component {
       this.state = {
         population: population,
         nga: 111506000,
-        deathRatePerSec: deathRatePerSec,
         birthCount: birthCount,
         deathCount: deathCount
       };
-      
-      
       setInterval(this.birthMap, 1000);
-
-      this.deathMap = this.deathMap.bind(this);
       setInterval(this.deathMap, 1500);
-
-      
     }
 
     resize = () => {
@@ -48,6 +32,7 @@ class App extends Component {
       }
     }
 
+    // Draw Map
     drawMap = () => {
       var worldMap = new Datamap ({
         element: document.getElementById("container"),
@@ -110,8 +95,7 @@ class App extends Component {
        
         var birthRatePerSec = population[x]['birthRate'] * population[x]['population']/31557600000;
         changePopulation['population'] = population[x]['population'];
-
-        // console.log('BirthRatePerSec for', population[x]['name'], birthRatePerSec);
+        
          // Increment One to Country Population if random number is less than BPS
         if ( birthRatePerSec > randomNumber) {
             changePopulation[population[x]['codes']] = '#ffc107';
@@ -129,7 +113,7 @@ class App extends Component {
       this.worldMap.updateChoropleth(changePopulation, {reset: true});
     }
 
-    deathMap() {
+    deathMap = () => {
       
       var changePopulation = {};
 
@@ -157,8 +141,6 @@ class App extends Component {
 
     componentDidMount() {
       this.drawMap();
-      // console.log('mount');
-
       setInterval(this.testMap, 1000);
     }
    //Forloop : select a random country, and add random timezone different country
