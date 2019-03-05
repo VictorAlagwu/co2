@@ -12,6 +12,16 @@ for (var x = 0; x < countries.length; x++) {
   countries[x]["newBirth"] = 0;
   countries[x]['newDeath'] = 0;
 }
+var windowVisible = true;
+
+document.addEventListener("visibilitychange", function() {
+  console.log( document.visibilityState );
+  if(document.visibilityState === "hidden"){
+    windowVisible = false;
+  }else{
+    windowVisible = true;
+  }
+});
 
 //Each Country get its own timer, then inside a forloop, we run different for a country
 class App extends Component {
@@ -73,7 +83,7 @@ class App extends Component {
 
 
     birthMap = () => {
-     
+      if(windowVisible){
         var changePopulation = {};
         var countBirth = 0;
         countries.map((country, i) => {
@@ -98,33 +108,35 @@ class App extends Component {
         }));
         
         this.worldMap.updateChoropleth(changePopulation, {reset: true});
-     
+      }
     }
 
     deathMap = () => {
-      var changePopulation = {};
-        var countDeath = 0;
-        countries.map((country, i) => {
-         
-          var deathRatePerSec = (country.deathRate * country.population) / 31557600000;
+      if(windowVisible){
+        var changePopulation = {};
+          var countDeath = 0;
+          countries.map((country, i) => {
+          
+            var deathRatePerSec = (country.deathRate * country.population) / 31557600000;
 
-            changePopulation['population'] = country.population;
+              changePopulation['population'] = country.population;
 
-            if ( (Math.random() * (1 - 0) + 0) < deathRatePerSec ) {
-                changePopulation[country.codes] = '#dc3545';
-                console.log();
-                country.newDeath++;
-                country.population--;
-                countDeath++
-              }
+              if ( (Math.random() * (1 - 0) + 0) < deathRatePerSec ) {
+                  changePopulation[country.codes] = '#dc3545';
+                  console.log();
+                  country.newDeath++;
+                  country.population--;
+                  countDeath++
+                }
 
-          })
-        
-      this.setState( (prevState, props) => ({
-        countries: prevState.countries,
-        deathCount: prevState.deathCount + countDeath
-      }));
-      this.worldMap.updateChoropleth(changePopulation, {reset: true});
+            })
+          
+        this.setState( (prevState, props) => ({
+          countries: prevState.countries,
+          deathCount: prevState.deathCount + countDeath
+        }));
+        this.worldMap.updateChoropleth(changePopulation, {reset: true});
+      }
     }
 
     componentDidMount() {
@@ -176,7 +188,7 @@ class App extends Component {
                 <Col xs="12">
                   <Row>
                     <Col sm="12" className="text-center">
-                      <p clanpssName="">Total Birth:  {this.state.birthCount}</p>
+                      <p className="">Total Birth:  {this.state.birthCount}</p>
                       <p>Total Death: {this.state.deathCount}</p>
                     </Col>
                   </Row>
