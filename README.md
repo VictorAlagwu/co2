@@ -8,7 +8,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * ~~Add Bootstrap 4,and ensure it is working~~	
 * ~~Deploy to Netlify~~
 * ~~Add the Map~~	
-* ~~Made it Upside down~~	
 * ~~Represent Data in Table~~	
 * ~~Add BirthRate to Data.js~~
 * ~~Add DeathRate to Data.js~~ 
@@ -18,3 +17,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * ~~Tabular representation~~
 * Work on array calculation, apparently Only the last data in the array in being stored in the state
 * Check and verify the data in Data.js, and use one year for all data
+* Refactor code
+* Made it Upside down
