@@ -70,21 +70,21 @@ class App extends Component {
       this.worldMap = worldMap;
     }
     
-    testMap = () => {
-      var randomNum = Math.random() ;
-      var birthRateNGR = 38.9;
+    // testMap = () => {
+    //   var randomNum = Math.random() ;
+    //   var birthRateNGR = 38.9;
       
-      var birthRatePerSecNGR = birthRateNGR*this.state.nga/31557600000;
-      console.log(randomNum < birthRatePerSecNGR, randomNum,birthRatePerSecNGR);
-      if (randomNum < birthRatePerSecNGR) {
-        this.setState((prevState, props) => {
-          return {
-            nga: prevState.nga++
-          }
-        })
-      }
+    //   var birthRatePerSecNGR = birthRateNGR*this.state.nga/31557600000;
+    //   console.log(randomNum < birthRatePerSecNGR, randomNum,birthRatePerSecNGR);
+    //   if (randomNum < birthRatePerSecNGR) {
+    //     this.setState((prevState, props) => {
+    //       return {
+    //         nga: prevState.nga++
+    //       }
+    //     })
+    //   }
       
-    }
+    // }
 
 
     birthMap = () => {
@@ -95,9 +95,9 @@ class App extends Component {
        
         var birthRatePerSec = population[x]['birthRate'] * population[x]['population']/31557600000;
         changePopulation['population'] = population[x]['population'];
-        
+
          // Increment One to Country Population if random number is less than BPS
-        if ( birthRatePerSec > randomNumber) {
+        if ( birthRatePerSec < randomNumber) {
             changePopulation[population[x]['codes']] = '#ffc107';
             population[x]['population']++;
         }
@@ -114,28 +114,23 @@ class App extends Component {
     }
 
     deathMap = () => {
-      
       var changePopulation = {};
+      for (var x = 0; x < population.length; x++) {
+        var randomNumber = Math.floor(Math.random() * 10) + 1;
+       
+        var deathRatePerSec = population[x]['deathRate'] * population[x]['population']/31557600000;
+        changePopulation['population'] = population[x]['population'];
 
-      const keys = Object.keys(this.state.population);
-      const randomIndex = keys[Math.floor(Math.random() * keys.length)];
-      
-      const item = this.state.population[randomIndex];
-
-      var oldPopulation = item.population; 
-      var decreasePopulation = item.population -= 1; 
-      var deathRate = Math.round(item.population/1000);
-      var newDeathRatePerSec = Math.round(deathRate*(item.population/31557600000));
-
-      item.deathRate++;
+         // Increment One to Country Population if random number is less than BPS
+        if ( deathRatePerSec > randomNumber) {
+            changePopulation[population[x]['codes']] = '#dc3545';
+            population[x]['population']--;
+        }
+      }
       this.setState( (prevState, props) => ({
-        deathRatePerSec: newDeathRatePerSec - prevState.deathRatePerSec,
-        population: update(prevState.population, {[randomIndex]: {'population': {$set: decreasePopulation}}}),
+        population: prevState.population,
         deathCount: deathCount++
       }));
-
-      changePopulation[item.codes] = '#dc3545';
-     
       this.worldMap.updateChoropleth(changePopulation, {reset: true});
     }
 

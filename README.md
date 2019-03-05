@@ -6,12 +6,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## TODO's	In the project directory, you can run:
 * ~~Add Bootstrap 4,and ensure it is working~~	
- * ~~Deploy to Netlify~~
+* ~~Deploy to Netlify~~
 * ~~Add the Map~~	
- * ~~Made it Upside down~~	
+* ~~Made it Upside down~~	
 * ~~Represent Data in Table~~	
+* ~~Add BirthRate to Data.js~~
+* ~~Add DeathRate to Data.js~~ 
 * ~~Implement Birth Rate Color Change~~	
 * ~~Implement Death Rate Color Change~~
-* Tabular representation
-* Get Birth Rate for individual countries
-* Logic...
+* ~~Add CO2emission rate to Data.js~~
+* ~~Tabular representation~~
+* Work on array calculation, apparently Only the last data in the array in being stored in the state
+* Check and verify the data in Data.js, and use one year for all data
