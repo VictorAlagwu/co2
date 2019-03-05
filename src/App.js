@@ -176,7 +176,7 @@ class App extends Component {
                 <Col xs="12">
                   <Row>
                     <Col sm="12" className="text-center">
-                      <p className="">Total Birth:  {this.state.birthCount}</p>
+                      <p clanpssName="">Total Birth:  {this.state.birthCount}</p>
                       <p>Total Death: {this.state.deathCount}</p>
                     </Col>
                   </Row>
