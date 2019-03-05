@@ -15,7 +15,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * ~~Implement Death Rate Color Change~~
 * ~~Add CO2emission rate to Data.js~~
 * ~~Tabular representation~~
-* Work on array calculation, apparently Only the last data in the array in being stored in the state
-* Check and verify the data in Data.js, and use one year for all data
+* ~~Work on array calculation, apparently Only the last data in the array in being stored in the state~~
+* Check and verify the data in Data.js, and use one year for all data 
 * Refactor code
 * Made it Upside down
