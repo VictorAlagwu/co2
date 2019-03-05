@@ -7,9 +7,11 @@ import Datamap from 'datamaps';
 import update from 'immutability-helper';
 import countries from './data';
 
-var population = countries;
-var birthCount = 0;
-var deathCount = 0;
+
+for (var x = 0; x < countries.length; x++) {
+  countries[x]["newBirth"] = 0;
+  countries[x]['newDeath'] = 0;
+}
 
 //Each Country get its own timer, then inside a forloop, we run different for a country
 class App extends Component {
@@ -17,10 +19,9 @@ class App extends Component {
       super(props)
       this.myMap = React.createRef();
       this.state = {
-        population: population,
-        nga: 111506000,
-        birthCount: birthCount,
-        deathCount: deathCount
+        countries: countries,
+        birthCount: 0,
+        deathCount: 0
       };
       setInterval(this.birthMap, 1000);
       setInterval(this.deathMap, 1500);
@@ -69,67 +70,59 @@ class App extends Component {
       worldMap.legend();
       this.worldMap = worldMap;
     }
-    
-    // testMap = () => {
-    //   var randomNum = Math.random() ;
-    //   var birthRateNGR = 38.9;
-      
-    //   var birthRatePerSecNGR = birthRateNGR*this.state.nga/31557600000;
-    //   console.log(randomNum < birthRatePerSecNGR, randomNum,birthRatePerSecNGR);
-    //   if (randomNum < birthRatePerSecNGR) {
-    //     this.setState((prevState, props) => {
-    //       return {
-    //         nga: prevState.nga++
-    //       }
-    //     })
-    //   }
-      
-    // }
 
 
     birthMap = () => {
      
-      var changePopulation = {};
-      for (var x = 0; x < population.length; x++) {
-        var randomNumber = Math.floor(Math.random() * 10) + 1;
-       
-        var birthRatePerSec = population[x]['birthRate'] * population[x]['population']/31557600000;
-        changePopulation['population'] = population[x]['population'];
+        var changePopulation = {};
+        var countBirth = 0;
+        countries.map((country, i) => {
+         
+            var birthRatePerSec = (country.birthRate * country.population) / 31557600000;
 
-         // Increment One to Country Population if random number is less than BPS
-        if ( birthRatePerSec < randomNumber) {
-            changePopulation[population[x]['codes']] = '#ffc107';
-            population[x]['population']++;
-        }
-      }
-      this.setState( (prevState, props) => ({
-        population: prevState.population,
-        birthCount: birthCount++
-      }));
-      
+            changePopulation['population'] = country.population;
 
-      console.log(changePopulation);
-      
-      this.worldMap.updateChoropleth(changePopulation, {reset: true});
+            if ( (Math.random() * (1 - 0) + 0) < birthRatePerSec ) {
+                changePopulation[country.codes] = '#ffc107';
+                console.log();
+                country.newBirth++;
+                country.population++;
+                countBirth++
+              }
+
+          })
+        
+        this.setState( (prevState, props) => ({
+          countries: prevState.countries,
+          birthCount: prevState.birthCount + countBirth
+        }));
+        
+        this.worldMap.updateChoropleth(changePopulation, {reset: true});
+     
     }
 
     deathMap = () => {
       var changePopulation = {};
-      for (var x = 0; x < population.length; x++) {
-        var randomNumber = Math.floor(Math.random() * 10) + 1;
-       
-        var deathRatePerSec = population[x]['deathRate'] * population[x]['population']/31557600000;
-        changePopulation['population'] = population[x]['population'];
+        var countDeath = 0;
+        countries.map((country, i) => {
+         
+          var deathRatePerSec = (country.deathRate * country.population) / 31557600000;
 
-         // Increment One to Country Population if random number is less than BPS
-        if ( deathRatePerSec > randomNumber) {
-            changePopulation[population[x]['codes']] = '#dc3545';
-            population[x]['population']--;
-        }
-      }
+            changePopulation['population'] = country.population;
+
+            if ( (Math.random() * (1 - 0) + 0) < deathRatePerSec ) {
+                changePopulation[country.codes] = '#dc3545';
+                console.log();
+                country.newDeath++;
+                country.population--;
+                countDeath++
+              }
+
+          })
+        
       this.setState( (prevState, props) => ({
-        population: prevState.population,
-        deathCount: deathCount++
+        countries: prevState.countries,
+        deathCount: prevState.deathCount + countDeath
       }));
       this.worldMap.updateChoropleth(changePopulation, {reset: true});
     }
@@ -138,30 +131,23 @@ class App extends Component {
       this.drawMap();
       setInterval(this.testMap, 1000);
     }
-   //Forloop : select a random country, and add random timezone different country
-    
-    clear = () => {
-      const mapContainer = this.myMap.current;
-
-      for (const child of Array.from(mapContainer.childNodes)) {
-          mapContainer.removeChild(child);
-      }
-    }
     render() {
       var mapList  = (country, i) => {
           return (
               <tr key={i}>
                   <th scope="row">{ country.name }</th>
                   <td>{ country.code }</td>
-                  <td>Emission</td>
                   <td>{ country.population }</td>
                   <td>{ country.birthRate }</td>
                   <td>{ country.deathRate }</td>
+                  <td>{ +(country.carbondioxide * ( country.newBirth - country.newDeath)).toFixed(2) }</td>
+                  <td>{ country.newBirth }</td>
+                  <td>{ country.newDeath }</td>
               </tr>
             )
         }
 
-        var listCountries  = this.state.population.map(mapList)
+        var listCountries  = this.state.countries.map(mapList)
        
      
       return (
@@ -190,8 +176,8 @@ class App extends Component {
                 <Col xs="12">
                   <Row>
                     <Col sm="12" className="text-center">
-                      <p className="">BirthCount:  {this.state.birthCount}</p>
-                      <p>DeathCount: {this.state.deathCount}</p>
+                      <p className="">Total Birth:  {this.state.birthCount}</p>
+                      <p>Total Death: {this.state.deathCount}</p>
                     </Col>
                   </Row>
                   <Table>
@@ -199,10 +185,12 @@ class App extends Component {
                           <tr>
                               <th>Country</th>
                               <th>Country Code</th>
-                              <th>CO2 Emissions per capital</th>
                               <th>Population</th>
                               <th>Birth Rate </th>
                               <th>Death Rate </th>
+                              <th>Marginal CO2</th>
+                              <th>Birth Count</th>
+                              <th>Death Count</th>
                           </tr>
                       </thead>
                       <tbody>
