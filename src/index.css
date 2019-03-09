@@ -37,4 +37,5 @@ code {
 
 #container svg {
   /* position: unset !important; */
+  width: unset !important;
 } 
