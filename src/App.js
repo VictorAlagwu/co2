@@ -35,12 +35,10 @@ class App extends Component {
       this.myMap = React.createRef();
       this.state = {
         countries: countries,
-        birthCount: 0,
-        deathCount: 0,
         showGarbageData: false
       };
 
-      setInterval(this.updateMap, 2000);
+      setInterval(this.updateMap, 1000);
     }
 
     resize = () => {
@@ -99,47 +97,46 @@ class App extends Component {
     updateMap = () => {
       if(windowVisible) {
         var changePopulation = {};
-        var countBirth = 0;
-        var countDeath = 0;
+        
+        for (let x = 0; x < countries.length; x++) {
+          let birthRatePerSec = countries[x]['birthRate'] * countries[x]['population'] / 31557600000;
+          let deathRatePerSec = countries[x]['deathRate'] * countries[x]['population'] / 31557600000;
 
-       
+          let randomNumber = Math.random();
 
-        countries.map((country, i) => {
-          var birthRatePerSec = country.birthRate * country.population / 31557600000;
-          var deathRatePerSec = country.deathRate * country.population / 31557600000;
+          changePopulation['population'] = countries[x]['population'];
 
-          var randomNumber = Math.random() * (1 - 0) + 0;
 
-          changePopulation['population'] = country.population;
+          let birthHappened = false;
+          let deathHappened = false;
 
-          // First Check if both Death and Birth occur at the same time for a country
-          if ( randomNumber < birthRatePerSec && randomNumber < deathRatePerSec) {
-            // changePopulation[country.codes] = '#61bd4f';
-              console.log('Both Occur same time');
-          } else {
-            if (randomNumber < deathRatePerSec) {
-              changePopulation[country.codes] = '#dc3545';
-              country.newDeath++;
-              country.population--;
-              countDeath++
-            } 
-            if (randomNumber < birthRatePerSec) {
-              // var newRand = Math.floor(Math.random() * 7) + 1;
-                  changePopulation[country.codes] = '#ffc107'
-                  country.newBirth++;
-                  country.population++;
-                  countBirth++
-                  // setTimeout(, newRand * 1000);
-              } 
-            
+          if ( randomNumber < birthRatePerSec ) {
+            birthHappened = true;
           }
-          
-        })
+
+          if ( randomNumber < (deathRatePerSec)) {
+            deathHappened = true;
+          }
+
+          if (birthHappened && deathHappened) {
+            // Perhaps show color of birth
+            changePopulation[countries[x]['codes']] = '#ffc107'
+            // countries[x]['newDeath']++;
+            // console.log('hello');
+          } else if (birthHappened) {
+            changePopulation[countries[x]['codes']] = '#ffc107'
+            countries[x]['newBirth']++;
+            countries[x]['population']++;
+          } else if (deathHappened) {
+            changePopulation[countries[x]['codes']] = '#dc3545';
+            countries[x]['newDeath']++;
+            countries[x]['population']--;
+          }
+
+        }
 
         this.setState( (prevState, props) => ({
-          countries: prevState.countries,
-          birthCount: prevState.birthCount + countBirth,
-          deathCount: prevState.deathCount + countDeath
+          countries: prevState.countries
         }));
         
         this.worldMap.updateChoropleth(changePopulation, {reset: true});
@@ -152,7 +149,6 @@ class App extends Component {
       }));
     }
     componentDidMount() {
-      // console.log(this.state.rand);
       this.drawMap();     
     }
 
@@ -205,41 +201,35 @@ class App extends Component {
               </Row>
               <hr />
               <Row>
-                <Col xs="12">
-                  <Row>
-                    <Col sm="12" className="text-center">
-                      <p className="">Total Birth:  {this.state.birthCount}</p>
-                      <p>Total Death: {this.state.deathCount}</p>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col sm="12">
-                      <Button onClick={this.handleButtonChange}>
-                          {  this.state.showGarbageData === false ? 
-                                          "Show Marginal Garbage Production" : "Show Marginal CO2Emission "
+                <Col sm="12">
+                  <Button onClick={this.handleButtonChange}>
+                      {  this.state.showGarbageData === false ? 
+                                      "Show Marginal Garbage Production" : "Show Marginal CO2Emission "
 
-                          }
-                      </Button>
-                      <hr/>
-                    </Col>
-                  </Row>
+                      }
+                  </Button>
+                  <hr/>
+                </Col>
+              </Row>
+              <Row>
+                <Col sm="12">
                   <Table>
-                      <thead>
-                          <tr>
-                              <th>Flag</th>
-                              <th>Country</th>
-                              <th>Population</th>
-                              <th> 
-                                { this.state.showGarbageData === false ? 
-                                                "Marginal CO2" : "Marginal Garbage Prod."
-                                }
-                                </th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          { listCountries }
-                      </tbody>
-                  </Table>
+                    <thead>
+                      <tr>
+                          <th>Flag</th>
+                          <th>Country</th>
+                          <th>Population</th>
+                          <th> 
+                            { this.state.showGarbageData === false ? 
+                                            "Marginal CO2" : "Marginal Garbage Prod."
+                            }
+                          </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        { listCountries }
+                    </tbody>
+                </Table>
                 </Col>
               </Row>
             </div>
