@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Helmet} from "react-helmet";
 import { Container, Row, Col, Table, Button} from 'reactstrap';
+import update from 'immutability-helper';
 import 'topojson';
 import Datamap from 'datamaps';
 import countries from './data';
@@ -12,12 +13,33 @@ for (var x = 0; x < countries.length; x++) {
   countries[x]['garbageProduction'] = 1;
 }
 var windowVisible = true;
-var rand = Math.floor(Math.random() * 5) + 1;
 
 var westernCountries = {
-  'USA': {fillkey: '#e30dfd'},
-  'CAN': {fillkey: '#e30dfd'}, 
-  'ESP': {fillkey: '#e30dfd'}
+  USA: '#296f4b',
+  CAN: '#296f4b', 
+  ESP: '#296f4b',
+  PRT: '#296f4b',
+  FRA: '#296f4b',
+  GBR: '#296f4b',
+  IRL: '#296f4b',
+  LUX: '#296f4b',
+  BEL: '#296f4b',
+  NLD: '#296f4b',
+  DEU: '#296f4b',
+  SWZ: '#296f4b',
+  ITA: '#296f4b',
+  AUS: '#296f4b',
+  AUT: '#296f4b',
+  NOR: '#296f4b',
+  DNK: '#296f4b',
+  ISL: '#296f4b',
+  SWE: '#296f4b',
+  FIN: '#296f4b',
+  JPN: '#296f4b',
+  KOR: '#296f4b',
+  NZL: '#296f4b',
+  GRC: '#296f4b',
+  CHN: '#296f4b'
 };
 document.addEventListener("visibilitychange", function() {
   console.log( document.visibilityState );
@@ -37,7 +59,7 @@ class App extends Component {
         countries: countries,
         showGarbageData: false
       };
-
+      window.addEventListener("resize", this.resize());
       setInterval(this.updateMap, 1000);
     }
 
@@ -58,14 +80,12 @@ class App extends Component {
         fills: {
           'Birth': '#ffc107',
           'Death': '#dc3545',
-          // 'GBR': '#8c564b',
-          // 'westernCountries': '#8c564b',
+          'westernCountries': '#296f4b',
           defaultFill: "#7f7f7f"
         },
         data: { 
-          // 'GBR': {fillKey: 'GBR'},
-          // 'FRA': {fillKey: 'FRA'},
-          // 'USA': {fillColor: 'westernCountries'}
+          'GBR': {fillKey: 'GBR'},
+          'FRA': {fillColor: '#dc3545'}
           },
         geographyConfig: {
           borderColor: '#DEDEDE',
@@ -89,16 +109,32 @@ class App extends Component {
       }
         });
      
-      window.addEventListener("resize", this.resize());
+      
       worldMap.legend();
       this.worldMap = worldMap;
     }
+    // Store the default country colors, then when updating Choropleth
+    // Use to timer to update choropleth, then update back to default color
+    updateCountry = (countryCode) => {
+      var changePopulation = {}
+      changePopulation[countryCode] = '#ffc107'
 
+      this.setState( (prevState, props) => ({
+        countries: prevState.countries
+      }), this.worldMap.updateChoropleth(changePopulation, {reset: false}));
+    console.log(changePopulation);
+      setTimeout( () => {
+        console.log('Update Default Color');
+        this.worldMap.updateChoropleth({USA: '#8c564b'}, {reset: false})
+      }, 500);
+    };
+   
+    
     updateMap = () => {
       if(windowVisible) {
         var changePopulation = {};
         
-        for (let x = 0; x < countries.length; x++) {
+        for (let x = 0; x < this.state.countries.length; x++) {
           let birthRatePerSec = countries[x]['birthRate'] * countries[x]['population'] / 31557600000;
           let deathRatePerSec = countries[x]['deathRate'] * countries[x]['population'] / 31557600000;
 
@@ -120,26 +156,36 @@ class App extends Component {
 
           if (birthHappened && deathHappened) {
             // Perhaps show color of birth
-            changePopulation[countries[x]['codes']] = '#ffc107'
-            // countries[x]['newDeath']++;
-            // console.log('hello');
+            changePopulation[countries[x]['codes']] = '#ffc107';
+
           } else if (birthHappened) {
-            changePopulation[countries[x]['codes']] = '#ffc107'
+            changePopulation[countries[x]['codes']] = '#ffc107';
             countries[x]['newBirth']++;
             countries[x]['population']++;
+        
           } else if (deathHappened) {
             changePopulation[countries[x]['codes']] = '#dc3545';
             countries[x]['newDeath']++;
             countries[x]['population']--;
+             //Change back to default Color
+        
           }
-
+       
         }
 
-        this.setState( (prevState, props) => ({
-          countries: prevState.countries
-        }));
+           // , this.worldMap.updateChoropleth(changePopulation, {reset: true})
+
+     
+    setTimeout( () => {
+        console.log('Update Default Color');
+        this.worldMap.updateChoropleth(changePopulation, {reset: true})
         
-        this.worldMap.updateChoropleth(changePopulation, {reset: true});
+      }, 700);
+
+      this.setState( (prevState, props) => ({
+        countries: prevState.countries
+      }), this.worldMap.updateChoropleth(westernCountries, {reset: false}));
+          
       }
     }
 
@@ -149,9 +195,16 @@ class App extends Component {
       }));
     }
     componentDidMount() {
-      this.drawMap();     
-    }
+      this.drawMap();
+    // this.worldMap.updateChoropleth(westernCountries, {reset: false})
 
+    //  let c = ['ABW', 'AFG', 'AGO', 'USA'];
+    //   for(let x = 0; x < c.length; x++)  {
+    //       setInterval(() => {
+    //         this.updateCountry(c[x]);
+    //       }, 1000);
+    //   }
+    }
     render() {
       var mapList  = (country, i) => {
           return (
