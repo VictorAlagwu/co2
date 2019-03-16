@@ -14,7 +14,7 @@ for (var x = 0; x < countries.length; x++) {
 var windowVisible = true;
 
 var defaultColorCodes = {
-  RUS: '#296f4b',
+  GRL: '#296f4b',
   USA: '#296f4b',
   CAN: '#296f4b', 
   ESP: '#296f4b',
@@ -39,7 +39,6 @@ var defaultColorCodes = {
   KOR: '#296f4b',
   NZL: '#296f4b',
   GRC: '#296f4b',
-  CHN: '#296f4b',
   AFG: '#af8c8f',
   IRN: '#af8c8f',
   MRT: '#af8c8f',
@@ -59,7 +58,75 @@ var defaultColorCodes = {
   TUN: '#af8c8f',
   ARE: '#af8c8f',
   BRN: '#af8c8f',
-  LBN: '#af8c8f'
+  LBN: '#af8c8f',
+  AGO: '#99995e',
+  GAB: '#99995e',
+  GMB: '#99995e',
+  GHA: '#99995e',
+  GIN: '#99995e',
+  GNB: '#99995e',
+  RWA: '#99995e',
+  BEN: '#99995e',
+  BWA: '#99995e',
+  BFA: '#99995e',
+  BDI: '#99995e',
+  KEN: '#99995e',
+  STP: '#99995e',
+  SEN: '#99995e',
+  SYC: '#99995e',
+  SLE: '#99995e',
+  ZAF: '#99995e',
+  SSD: '#99995e',
+  SDN: '#99995e',
+  CPV: '#99995e',
+  CMR: '#99995e',
+  CAF: '#99995e',
+  TCD: '#99995e',
+  COM: '#99995e',
+  COD: '#99995e',
+  COG: '#99995e',
+  CIV: '#99995e',
+  LSO: '#99995e',
+  LBR: '#99995e',
+  TZA: '#99995e',
+  TGO: '#99995e',
+  UGA: '#99995e',
+  MDG: '#99995e',
+  MWI: '#99995e',
+  MLI: '#99995e',
+  MUS: '#99995e',
+  MOZ: '#99995e',
+  DJI: '#99995e',
+  ZMB: '#99995e',
+  GNQ: '#99995e',
+  ERI: '#99995e',
+  CHE: '#99995e',
+  ETH: '#99995e',
+  NAM: '#99995e',
+  NER: '#99995e',
+  NGA: '#99995e',
+  ZWE: '#99995e',
+  RUS: '#99d8c9',
+  CHN: '#fdc086',
+  IND: '#377eb8',
+  ARG: '#9563d4',
+  BOL: '#9563d4',
+  BRA: '#9563d4',
+  CHL: '#9563d4',
+  COL: '#9563d4',
+  ECU: '#9563d4',
+  GUY: '#9563d4',
+  PRY: '#9563d4',
+  PER: '#9563d4',
+  SUR: '#9563d4',
+  URY: '#9563d4',
+  VEN: '#9563d4',
+  CUB: '#9563d4',
+  DOM: '#9563d4',
+  HTI: '#9563d4',
+  PRI: '#9563d4',
+  MAF: '#9563d4',
+
 };
 document.addEventListener("visibilitychange", function() {
   console.log( document.visibilityState );
@@ -79,8 +146,6 @@ class App extends Component {
         countries: countries,
         showGarbageData: false
       };
-      window.addEventListener("resize", this.resize());
-      // setInterval(this.updateMap, 1000);
     }
 
     resize = () => {
@@ -95,38 +160,28 @@ class App extends Component {
         element: document.getElementById("container"),
         scope: 'world',
         responsive: true,
-        aspectRatio: 0.5625,
         projection: 'equirectangular',
         fills: {
           'Birth': '#ffc107',
           'Death': '#dc3545',
-          'westernCountries': '#296f4b',
-          'Islamic Countries': '#af8c8f',
+          'Western': '#296f4b',
+          'Orthodox': '#99d8c9',
+          'Islamic': '#af8c8f',
+          'African': '#99995e',
+          'Hindu': '#377eb8',
+          'Buddhist': '#3182bd',
+          'Japanese': '#bcbddc',
+          'Sinic': '#fdc086',
+          'Latin American': '#9563d4',
           defaultFill: "#7f7f7f"
         },
-        data: { 
-          'GBR': {fillKey: 'GBR'},
-          'FRA': {fillColor: '#dc3545'}
-          },
+        // data: 
         geographyConfig: {
-          borderColor: '#DEDEDE',
+          borderColor: '#343a4061',
+          highlightOnHover: false,
+          popupOnHover: true,
           highlightBorderWidth: 2,
-          // don't change color on mouse hover
-          highlightFillColor: function(geo) {
-              return geo['fillColor'] || '#F5F5F5';
-          },
-          // only change border
-          highlightBorderColor: '#B7B7B7',
-          // show desired information in tooltip
-          popupTemplate: function(geo, data) {
-              // don't show tooltip if country don't present in dataset
-              if (!data) { return ; }
-              // tooltip content
-              return ['<div class="hoverinfo">',
-                  '<strong>', geo.properties.name, '</strong>'
-                 ,
-                  '</div>'].join('');
-          }
+        
       }
         });
      
@@ -179,10 +234,12 @@ class App extends Component {
                 countries: prevState.countries
               }
             }, () => { 
-                this.worldMap.updateChoropleth(changePopulation, {reset: false})
+              window.addEventListener("resize", this.resize());
+                this.worldMap.updateChoropleth(changePopulation)
                 setTimeout( () => {
-                  this.worldMap.updateChoropleth(defaultColorCodes, {reset: false})
-                }, 700);
+                  
+                  this.worldMap.updateChoropleth(defaultColorCodes)
+                }, 500);
                 }
             );
             break;
@@ -203,25 +260,13 @@ class App extends Component {
     }
     componentDidMount() {
       this.drawMap();
-      // var self = this;
-      // var i = -1;
-      // self.timerID = setInterval( function() {
-      //     ++i;
-      //     if(i >= countries.length) {
-      //       i = 0;
-      //     }
-      //     console.log(countries[i]['name']);
-      //     self.updateMap(countries[i]['codes']);
-      // }, 1000)
-      // var country = ['ABW', 'AFG', 'AGO', 'USA', 'CHN','IND'];
       for(let x = 0; x < countries.length; x++) {
-        var random = Math.floor(Math.random() * 100) + 1;
+        var randomTimer = Math.floor(Math.random() * 300) + 1;
         setTimeout(() => {
-          setInterval(() => { 
-            this.updateMap(countries[x]['codes']);
-          }
-          , 1000);
-        }, random)
+            setInterval(() => { 
+              this.updateMap(countries[x]['codes']);
+            }, 1000)
+        }, randomTimer)
         
         
       }

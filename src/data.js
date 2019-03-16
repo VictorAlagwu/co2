@@ -417,7 +417,7 @@ var data = [
 	},
 	{
 		"codes": "CPV",
-		"name": "Cape Verde",
+		"name": "Cabo Verde",
 		"population": 508659,
 		"code": "CV",
 		"birthRate": 20.96,
