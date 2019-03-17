@@ -39,95 +39,173 @@ var defaultColorCodes = {
   KOR: '#296f4b',
   NZL: '#296f4b',
   GRC: '#296f4b',
-  AFG: '#af8c8f',
-  IRN: '#af8c8f',
-  MRT: '#af8c8f',
-  PAK: '#af8c8f',
-  SAU: '#af8c8f',
-  YEM: '#af8c8f',
-  DZA: '#af8c8f',
-  EGY: '#af8c8f',
-  IRQ: '#af8c8f',
-  JOR: '#af8c8f',
-  KWT: '#af8c8f',
-  LBY: '#af8c8f',
-  MYS: '#af8c8f',
-  MDV: '#af8c8f',
-  MAR: '#af8c8f',
-  SOM: '#af8c8f',
-  TUN: '#af8c8f',
-  ARE: '#af8c8f',
-  BRN: '#af8c8f',
-  LBN: '#af8c8f',
-  AGO: '#99995e',
-  GAB: '#99995e',
-  GMB: '#99995e',
-  GHA: '#99995e',
-  GIN: '#99995e',
-  GNB: '#99995e',
-  RWA: '#99995e',
-  BEN: '#99995e',
-  BWA: '#99995e',
-  BFA: '#99995e',
-  BDI: '#99995e',
-  KEN: '#99995e',
-  STP: '#99995e',
-  SEN: '#99995e',
-  SYC: '#99995e',
-  SLE: '#99995e',
-  ZAF: '#99995e',
-  SSD: '#99995e',
-  SDN: '#99995e',
-  CPV: '#99995e',
-  CMR: '#99995e',
-  CAF: '#99995e',
-  TCD: '#99995e',
-  COM: '#99995e',
-  COD: '#99995e',
-  COG: '#99995e',
-  CIV: '#99995e',
-  LSO: '#99995e',
-  LBR: '#99995e',
-  TZA: '#99995e',
-  TGO: '#99995e',
-  UGA: '#99995e',
-  MDG: '#99995e',
-  MWI: '#99995e',
-  MLI: '#99995e',
-  MUS: '#99995e',
-  MOZ: '#99995e',
-  DJI: '#99995e',
-  ZMB: '#99995e',
-  GNQ: '#99995e',
-  ERI: '#99995e',
-  CHE: '#99995e',
-  ETH: '#99995e',
-  NAM: '#99995e',
-  NER: '#99995e',
-  NGA: '#99995e',
-  ZWE: '#99995e',
-  RUS: '#99d8c9',
-  CHN: '#fdc086',
-  IND: '#377eb8',
-  ARG: '#9563d4',
-  BOL: '#9563d4',
-  BRA: '#9563d4',
-  CHL: '#9563d4',
-  COL: '#9563d4',
-  ECU: '#9563d4',
-  GUY: '#9563d4',
-  PRY: '#9563d4',
-  PER: '#9563d4',
-  SUR: '#9563d4',
-  URY: '#9563d4',
-  VEN: '#9563d4',
-  CUB: '#9563d4',
-  DOM: '#9563d4',
-  HTI: '#9563d4',
-  PRI: '#9563d4',
-  MAF: '#9563d4',
+  AFG: '#000000',
+  IRN: '#000000',
+  MRT: '#000000',
+  PAK: '#000000',
+  SAU: '#000000',
+  YEM: '#000000',
+  DZA: '#000000',
+  EGY: '#000000',
+  IRQ: '#000000',
+  JOR: '#000000',
+  KWT: '#000000',
+  LBY: '#000000',
+  MYS: '#000000',
+  MDV: '#000000',
+  MAR: '#000000',
+  SOM: '#000000',
+  TUN: '#000000',
+  ARE: '#000000',
+  BRN: '#000000',
+  LBN: '#000000',
+  AGO: '#000000',
+  GAB: '#000000',
+  GMB: '#000000',
+  GHA: '#000000',
+  GIN: '#000000',
+  GNB: '#000000',
+  RWA: '#000000',
+  BEN: '#000000',
+  BWA: '#000000',
+  BFA: '#000000',
+  BDI: '#000000',
+  KEN: '#000000',
+  STP: '#000000',
+  SEN: '#000000',
+  SYC: '#000000',
+  SLE: '#000000',
+  ZAF: '#000000',
+  SSD: '#000000',
+  SDN: '#000000',
+  CPV: '#000000',
+  CMR: '#000000',
+  CAF: '#000000',
+  TCD: '#000000',
+  COM: '#000000',
+  COD: '#000000',
+  COG: '#000000',
+  CIV: '#000000',
+  LSO: '#000000',
+  LBR: '#000000',
+  TZA: '#000000',
+  TGO: '#000000',
+  UGA: '#000000',
+  MDG: '#000000',
+  MWI: '#000000',
+  MLI: '#000000',
+  MUS: '#000000',
+  MOZ: '#000000',
+  DJI: '#000000',
+  ZMB: '#000000',
+  GNQ: '#000000',
+  ERI: '#000000',
+  CHE: '#000000',
+  ETH: '#000000',
+  NAM: '#000000',
+  NER: '#000000',
+  NGA: '#000000',
+  ZWE: '#000000',
+  RUS: '#000000',
+  CHN: '#000000',
+  IND: '#000000',
+  ARG: '#000000',
+  BOL: '#000000',
+  BRA: '#000000',
+  CHL: '#000000',
+  COL: '#000000',
+  ECU: '#000000',
+  GUY: '#000000',
+  PRY: '#000000',
+  PER: '#000000',
+  SUR: '#000000',
+  URY: '#000000',
+  VEN: '#000000',
+  CUB: '#000000',
+  DOM: '#000000',
+  HTI: '#000000',
+  PRI: '#000000',
+  MAF: '#000000',
+  MEX: '#000000',
+  NIC: '#000000',
+  GTM: '#000000',
+  BLZ: '#000000',
+  CRI: '#000000',
+  SLV: '#000000',
+  ATG: '#000000',
+  ABW: '#000000',
+  BHS: '#000000',
+  BRB: '#000000',
+  CYM: '#000000',
+  HND: '#000000',
+  PAN: '#000000',
+  DMA: '#000000',
+  GRD: '#000000',
+  VGB: '#000000',
+  VIR: '#000000',
+  TCA: '#000000',
+  TTO: '#000000',
+  KNA: '#000000',
+  LCA: '#000000',
+  VCT: '#000000',
+  JAM: '#000000',
+  GUF: '#000000',
+  IDN: '#000000',
+  BGD: '#000000',
+  PHL: '#000000',
+  SYR: '#000000',
+  TWN: '#000000',
+  THA: '#000000',
+  TJK: '#000000',
+  UKR: '#000000',
+  BIH: '#000000',
+  PRK: '#000000',
+  PSE: '#000000',
+  QAT: '#000000',
+  SHN: '#000000',
+  SPM: '#000000',
+  SGP: '#000000',
+  SLB: '#000000',
+  SMR: '#000000',
+  SRB: '#000000',
+  SVK: '#000000',
+  SXM: '#000000',
+  TKM: '#000000',
+  TLS: '#000000',
+  TON: '#000000',
+  TUR: '#000000',
+  TUV: '#000000',
+  UZB: '#000000',
+  VNM: '#000000',
+  VUT: '#000000',
+  KAZ: '#000000',
+  ROU: '#000000',
+  BLR: '#000000',
+  CZE: '#000000',
+  MMR: '#000000',
+  AZE: '#000000',
+  NPL: '#000000',
+  HRV: '#000000',
+  BGR: '#000000',
+  POL: '#000000',
+  PNG: '#000000',
+  KHM: '#000000',
+  ALB: '#000000',
+  FRO: '#000000',
+  MNG: '#000000',
+  KGZ: '#000000',
+  LAO: '#000000',
+  MKD: '#000000',
+  MLT: '#000000',
+  MNE: '#000000',
+  MSR: '#000000',
+  MNP: '#000000',
+  MYT: '#000000',
+  HUN: '#000000',
 
 };
+// Western Countries - pINK, Others - Black Birth:yellow, Death:red, birth and death - yellow
+// When A country get it first birth or death (state change), then it will appear on the list.
 document.addEventListener("visibilitychange", function() {
   console.log( document.visibilityState );
   if(document.visibilityState === "hidden"){
@@ -164,20 +242,38 @@ class App extends Component {
         fills: {
           'Birth': '#ffc107',
           'Death': '#dc3545',
-          'Western': '#296f4b',
-          'Orthodox': '#99d8c9',
-          'Islamic': '#af8c8f',
-          'African': '#99995e',
-          'Hindu': '#377eb8',
-          'Buddhist': '#3182bd',
-          'Japanese': '#bcbddc',
-          'Sinic': '#fdc086',
-          'Latin American': '#9563d4',
-          defaultFill: "#7f7f7f"
+          'western': '#296f4b',
+          defaultFill: "#000000"
         },
-        // data: 
+        data: {
+          GRL: {fillKey: 'western'},
+          USA: {fillKey: 'western'},
+          CAN: {fillKey: 'western'}, 
+          ESP: {fillKey: 'western'},
+          PRT: {fillKey: 'western'},
+          FRA: {fillKey: 'western'},
+          GBR: {fillKey: 'western'},
+          IRL: {fillKey: 'western'},
+          LUX: {fillKey: 'western'},
+          BEL: {fillKey: 'western'},
+          NLD: {fillKey: 'western'},
+          DEU: {fillKey: 'western'},
+          SWZ: {fillKey: 'western'},
+          ITA: {fillKey: 'western'},
+          AUS: {fillKey: 'western'},
+          AUT: {fillKey: 'western'},
+          NOR: {fillKey: 'western'},
+          DNK: {fillKey: 'western'},
+          ISL: {fillKey: 'western'},
+          SWE: {fillKey: 'western'},
+          FIN: {fillKey: 'western'},
+          JPN: {fillKey: 'western'},
+          KOR: {fillKey: 'western'},
+          NZL: {fillKey: 'western'},
+          GRC: {fillKey: 'western'},
+        },
         geographyConfig: {
-          borderColor: '#343a4061',
+          borderColor: '#808080',
           highlightOnHover: false,
           popupOnHover: true,
           highlightBorderWidth: 2,
@@ -186,7 +282,7 @@ class App extends Component {
         });
      
       
-      worldMap.legend();
+      // worldMap.legend();
       this.worldMap = worldMap;
     }
 
@@ -213,9 +309,10 @@ class App extends Component {
             }
   
             if (birthHappened && deathHappened) {
-              changePopulation[countries[x]['codes']] = '#ffc107';
-              
-  
+              changePopulation[countries[x]['codes']] = '#dc3545';
+              countries[x]['newBirth']++;
+              countries[x]['newDeath']++;
+
             } else if (birthHappened) {
               changePopulation[countries[x]['codes']] = '#ffc107';
               countries[x]['newBirth']++;
@@ -237,7 +334,6 @@ class App extends Component {
               window.addEventListener("resize", this.resize());
                 this.worldMap.updateChoropleth(changePopulation)
                 setTimeout( () => {
-                  
                   this.worldMap.updateChoropleth(defaultColorCodes)
                 }, 500);
                 }
@@ -274,22 +370,25 @@ class App extends Component {
 
     render() {
       var mapList  = (country, i) => {
-          return (
+          
+          if(country.newBirth > 0 || country.newDeath > 0){
+            return(
               <tr key={i}>
-                  <td><img className="img-fluid" src={"/country-flags/" + country.code.toLowerCase() + ".png"} alt={ country.name + "Flag"} /></td>
-                  <th scope="row">{ country.name }</th>
-                  <td>{ '+' + country.newBirth + ' ,  -' + country.newDeath}</td>
-                  <td>
-                      { this.state.showGarbageData === false ? (
-                            +(country.carbondioxide * ( country.newBirth - country.newDeath)).toFixed(2)
-                        ) : (
-                            country.garbageProduction
-                        )
-                     }
+                <td><img className="img-fluid" src={"/country-flags/" + country.code.toLowerCase() + ".png"} alt={ country.name + "Flag"} /></td>
+                <th scope="row">{ country.name }</th>
+                <td>{ '+' + country.newBirth + ' ,  -' + country.newDeath}</td>
+                <td>
+                    { this.state.showGarbageData === false ? (
+                          +(country.carbondioxide * ( country.newBirth - country.newDeath)).toFixed(2)
+                      ) : (
+                          country.garbageProduction
+                      )
+                  }
                   </td>
               </tr>
-            )
-        }
+             )
+            }
+    }
 
         var listCountries  = this.state.countries.sort((a, b) => {
           var countryA = a.name;

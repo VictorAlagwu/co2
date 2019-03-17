@@ -1507,12 +1507,21 @@ var data = [
 		"carbondioxide": 0
 	},
 	{
+		"codes": "GUF",
+		"name": "French Guiana",
+		"population": 296711,
+		"code": "GF",
+		"birthRate": 15.7,
+		"deathRate": 5.653,
+		"carbondioxide": 4.21
+	},
+	{
 		"codes": "PYF",
 		"name": "French Polynesia",
 		"population": 235000,
 		"code": "PF",
-		"birthRate": 15.7,
-		"deathRate": 5.653,
+		"birthRate": 20.46,
+		"deathRate": 4.88,
 		"carbondioxide": 2.92
 	},
 	{
