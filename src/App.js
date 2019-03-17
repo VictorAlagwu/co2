@@ -202,6 +202,7 @@ var defaultColorCodes = {
   MNP: '#000000',
   MYT: '#000000',
   HUN: '#000000',
+  BTN: '#000000',
 
 };
 // Western Countries - pINK, Others - Black Birth:yellow, Death:red, birth and death - yellow
