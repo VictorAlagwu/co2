@@ -310,7 +310,7 @@ class App extends Component {
             }
   
             if (birthHappened && deathHappened) {
-              changePopulation[countries[x]['codes']] = '#dc3545';
+              changePopulation[countries[x]['codes']] = '#ffc107';
               countries[x]['newBirth']++;
               countries[x]['newDeath']++;
 
