@@ -203,6 +203,7 @@ var defaultColorCodes = {
   MYT: '#000000',
   HUN: '#000000',
   BTN: '#000000',
+  SVN: '#000000',
 
 };
 // Western Countries - pINK, Others - Black Birth:yellow, Death:red, birth and death - yellow
@@ -310,7 +311,7 @@ class App extends Component {
             }
   
             if (birthHappened && deathHappened) {
-              changePopulation[countries[x]['codes']] = '#ffc107';
+              changePopulation[countries[x]['codes']] = '#dc3545';
               countries[x]['newBirth']++;
               countries[x]['newDeath']++;
 
