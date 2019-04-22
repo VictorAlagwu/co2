@@ -27,9 +27,19 @@ code {
   
 }
 .container {
-  padding-top: 40px;
+ 
 }
 #container svg {
   /* position: unset !important; */
-  width: unset !important;
+  /* width: unset !important; */
+  /* padding-top: 40px; */
+  width: 100%;
+  background-color: #eceaecbd;
 } 
+.countryTable {
+  margin: 0px auto;
+}
+.flagImage {
+  margin-right: 10px;
+  width: 40px;
+}

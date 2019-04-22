@@ -20,5 +20,5 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Refactor code
 * Made it Upside down
 * Sort List base on marginal CO2Emission -- marginal Garbage
-* Latvia,Estonia,Jordan, fiji
+* Latvia,Estonia,Jordan, fiji, Georgia, Croatia, Oman, moldova, lithuania
 * Check code and refactor to just one timer, but still retain same property

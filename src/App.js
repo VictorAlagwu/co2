@@ -220,6 +220,7 @@ class App extends Component {
         countries: countries,
         showGarbageData: false
       };
+      setInterval(this.updateMap, 1000);
     }
 
     resize = () => {
@@ -283,11 +284,10 @@ class App extends Component {
     }
 
     
-    updateMap = (countryCode) => {
+    updateMap = () => {
       if(windowVisible) {
         var changePopulation = {};
         for (var x = 0; x < countries.length; x++) {
-          if (countryCode === countries[x]['codes']) {
             var birthRatePerSec = countries[x]['birthRate'] * countries[x]['population'] / 31557600000;
             var deathRatePerSec = countries[x]['deathRate'] * countries[x]['population'] / 31557600000;
   
@@ -305,7 +305,7 @@ class App extends Component {
             }
   
             if (birthHappened && deathHappened) {
-              changePopulation[countries[x]['codes']] = '#dc3545';
+              changePopulation[countries[x]['codes']] = '#EE7B26';
               countries[x]['newBirth']++;
               countries[x]['newDeath']++;
 
@@ -321,23 +321,20 @@ class App extends Component {
               //Change back to default Color
           
             }
-
-            this.setState((prevState, props) => {
-              return { 
-                countries: prevState.countries
-              }
-            }, () => { 
-              window.addEventListener("resize", this.resize());
-                this.worldMap.updateChoropleth(changePopulation)
-                setTimeout( () => {
-                  this.worldMap.updateChoropleth(defaultColorCodes)
-                }, 500);
-                }
-            );
-            break;
-          }
-         
         }
+
+        this.setState((prevState, props) => {
+          return { 
+            countries: prevState.countries
+          }
+        }, () => { 
+          window.addEventListener("resize", this.resize());
+            this.worldMap.updateChoropleth(changePopulation)
+            setTimeout( () => {
+              this.worldMap.updateChoropleth(defaultColorCodes)
+            }, 500);
+            }
+        );
     }
   }
     handleButtonChange = () => {
@@ -347,44 +344,56 @@ class App extends Component {
     }
     componentDidMount() {
       this.drawMap();
-      for(let x = 0; x < countries.length; x++) {
-        var randomTimer = Math.floor(Math.random() * 300) + 1;
-        setTimeout(() => {
-            setInterval(() => { 
-              this.updateMap(countries[x]['codes']);
-            }, 1000)
-        }, randomTimer)
-        
-        
-      }
+      window.addEventListener("resize", this.resize());
+    
     }
 
     render() {
       var mapList  = (country, i) => {
           
-          if(country.newBirth > 0 || country.newDeath > 0){
-            return(
-              <tr key={i}>
-                <td><img className="img-fluid" src={"/country-flags/" + country.code.toLowerCase() + ".png"} alt={ country.name + "Flag"} /></td>
-                <th scope="row">{ country.name }</th>
-                <td>{ '+' + country.newBirth + ' ,  -' + country.newDeath}</td>
-                <td>
-                    { this.state.showGarbageData === false ? (
-                          +(country.carbondioxide * ( country.newBirth - country.newDeath)).toFixed(2)
-                      ) : (
-                          country.garbageProduction
-                      )
-                  }
-                  </td>
-              </tr>
-             )
-            }
+      if(country.newBirth > 0 || country.newDeath > 0){
+        return(
+          <tr key={i}>
+            <td><img className="img-fluid flagImage" src={"/country-flags/" + country.code.toLowerCase() + ".svg"} alt={ country.name + "Flag"} /></td>
+            <th scope="row">{ country.name }</th>
+            <td>{ '+' + country.newBirth + ' ,  -' + country.newDeath}</td>
+            <td>
+                { this.state.showGarbageData === false ? (
+                      +(country.carbondioxide * ( country.newBirth - country.newDeath)).toFixed(2)
+                  ) : (
+                      country.garbageProduction
+                  )
+              }
+              </td>
+          </tr>
+          )
+        }
     }
 
         var listCountries  = this.state.countries.sort((a, b) => {
-          var countryA = a.name;
-          var countryB = b.name;
-          return (countryA < countryB) ? -1 : (countryA > countryB) ? 1 : 0;
+          if(a.newBirth > b.newBirth){
+            return -1;
+          } else if(a.newBirth < b.newBirth) {
+            return 1;
+          } else {
+            if(a.name > b.name){
+                  return -1;
+              }else{
+                  return 1;
+                }
+          }
+          // }else if(a["carbondioxide"] < b["carbondioxide"]){
+          //   return 1;
+          // }else{
+          //   if(a["garbageProduction"] > b["garbageProduction"]){
+          //     return -1;
+          //   }else{
+          //     return 1;
+          //   }
+          // }
+          // var countryA = a.carbondioxide;
+          // var countryB = b.carbondioxide;
+          // return (countryA < countryB) ? -1 : (countryA > countryB) ? 1 : 0;
         }).map(mapList)
        
      
@@ -423,7 +432,7 @@ class App extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col sm="12">
+                <Col sm="6" className="countryTable">
                   <Table>
                     <thead>
                       <tr>
