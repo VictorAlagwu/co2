@@ -13,28 +13,22 @@ code {
     monospace;
 }
 
-.highcharts-series-group {
+.mapDiagram {
   transform: rotate(180deg);
   transform-origin: 50% 50%;
 }
 
-.highcharts-data-labels {
+.datamaps-hoverover {
   transform: rotate(180deg);
-  transform-origin: 49% 44%;
+  transform-origin: 50% 50%;
+  
+}
+.hoverinfo {
+  
 }
 .container {
   padding-top: 40px;
-  
-  /* text-align:  center; */
 }
-#container {
-  /* position: unset !important; */
-  /* padding-bottom: 0 !important;
-  margin: 0 auto;
-  width: 750px;
-  height: 500px; */
-}
-
 #container svg {
   /* position: unset !important; */
   width: unset !important;

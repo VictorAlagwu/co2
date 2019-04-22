@@ -204,17 +204,11 @@ var defaultColorCodes = {
   HUN: '#000000',
   BTN: '#000000',
   SVN: '#000000',
-
 };
 // Western Countries - pINK, Others - Black Birth:yellow, Death:red, birth and death - yellow
 // When A country get it first birth or death (state change), then it will appear on the list.
 document.addEventListener("visibilitychange", function() {
-  console.log( document.visibilityState );
-  if(document.visibilityState === "hidden"){
-    windowVisible = false;
-  }else{
-    windowVisible = true;
-  }
+  document.visibilityState === "hidden" ? windowVisible = false : windowVisible = true;
 });
 
 //Each Country get its own timer, then inside a forloop, we run different for a country
@@ -344,11 +338,6 @@ class App extends Component {
           }
          
         }
-
-        
-
-       
-    
     }
   }
     handleButtonChange = () => {
@@ -404,7 +393,7 @@ class App extends Component {
           <Helmet>
             <meta charSet="utf-8" />
             <title>CO2 Emission</title>
-            <link rel="canonical" href="http://mysite.com/example" />
+            <link rel="canonical" href="#" />
           </Helmet>
           <Container fluid>
             <div className="header text-center">
@@ -417,12 +406,13 @@ class App extends Component {
             <div className="main container-fluid">
               <Row>
                 <Col xs="12">
-                  <div id="container" ref={this.myMap} />
+                  <div id="container" ref={this.myMap} className="mapDiagram" />
                 </Col>
               </Row>
               <hr />
               <Row>
                 <Col sm="12">
+                  
                   <Button onClick={this.handleButtonChange}>
                       {  this.state.showGarbageData === false ? 
                                       "Show Marginal Garbage Production" : "Show Marginal CO2Emission "

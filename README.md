@@ -19,3 +19,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Check and verify the data in Data.js, and use one year for all data 
 * Refactor code
 * Made it Upside down
+* Sort List base on marginal CO2Emission -- marginal Garbage
+* Latvia,Estonia,Jordan, fiji
+* Check code and refactor to just one timer, but still retain same property
