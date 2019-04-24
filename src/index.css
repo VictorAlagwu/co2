@@ -14,20 +14,14 @@ code {
 }
 
 .mapDiagram {
-  transform: rotate(180deg);
+  transform: rotateX(180deg);
   transform-origin: 50% 50%;
 }
 
 .datamaps-hoverover {
-  transform: rotate(180deg);
+  transform: rotateX(180deg);
   transform-origin: 50% 50%;
   
-}
-.hoverinfo {
-  
-}
-.container {
- 
 }
 #container svg {
   /* position: unset !important; */

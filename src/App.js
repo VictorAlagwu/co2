@@ -369,33 +369,19 @@ class App extends Component {
           )
         }
     }
-
-        var listCountries  = this.state.countries.sort((a, b) => {
-          if(a.newBirth > b.newBirth){
+console.log('BeforeSorting', this.state.countries)
+        var mapCharater = this.state.countries.sort((a, b) => {
+          if(a.carbondioxide > b.carbondioxide){
+            // console.log(a.carbondioxide, b.carbondioxide, -1)
+            
             return -1;
-          } else if(a.newBirth < b.newBirth) {
-            return 1;
           } else {
-            if(a.name > b.name){
-                  return -1;
-              }else{
-                  return 1;
-                }
+            // console.log(a.carbondioxide, b.carbondioxide, 1)
+            return 1;
           }
-          // }else if(a["carbondioxide"] < b["carbondioxide"]){
-          //   return 1;
-          // }else{
-          //   if(a["garbageProduction"] > b["garbageProduction"]){
-          //     return -1;
-          //   }else{
-          //     return 1;
-          //   }
-          // }
-          // var countryA = a.carbondioxide;
-          // var countryB = b.carbondioxide;
-          // return (countryA < countryB) ? -1 : (countryA > countryB) ? 1 : 0;
-        }).map(mapList)
-       
+        });
+       var listCountries = this.state.countries.map(mapList);
+      console.log('Aftersorting', mapCharater)
      
       return (
         <div className="App">
@@ -421,7 +407,6 @@ class App extends Component {
               <hr />
               <Row>
                 <Col sm="12">
-                  
                   <Button onClick={this.handleButtonChange}>
                       {  this.state.showGarbageData === false ? 
                                       "Show Marginal Garbage Production" : "Show Marginal CO2Emission "
