@@ -205,8 +205,7 @@ var defaultColorCodes = {
   BTN: '#000000',
   SVN: '#000000',
 };
-// Western Countries - pINK, Others - Black Birth:yellow, Death:red, birth and death - yellow
-// When A country get it first birth or death (state change), then it will appear on the list.
+
 document.addEventListener("visibilitychange", function() {
   document.visibilityState === "hidden" ? windowVisible = false : windowVisible = true;
 });
@@ -308,16 +307,19 @@ class App extends Component {
               changePopulation[countries[x]['codes']] = '#EE7B26';
               countries[x]['newBirth']++;
               countries[x]['newDeath']++;
+              countries[x]['garbageProduction'] =+ randomNumber;
 
             } else if (birthHappened) {
               changePopulation[countries[x]['codes']] = '#ffc107';
               countries[x]['newBirth']++;
               countries[x]['population']++;
-          
+              countries[x]['garbageProduction'] =+ randomNumber;
+
             } else if (deathHappened) {
               changePopulation[countries[x]['codes']] = '#dc3545';
               countries[x]['newDeath']++;
               countries[x]['population']--;
+              countries[x]['garbageProduction'] =+ randomNumber;
               //Change back to default Color
           
             }
@@ -361,7 +363,7 @@ class App extends Component {
                 { this.state.showGarbageData === false ? (
                       +(country.carbondioxide * ( country.newBirth - country.newDeath)).toFixed(2)
                   ) : (
-                      country.garbageProduction
+                      country.garbageProduction.toFixed(2)
                   )
               }
               </td>
@@ -369,19 +371,16 @@ class App extends Component {
           )
         }
     }
-console.log('BeforeSorting', this.state.countries)
-        var mapCharater = this.state.countries.sort((a, b) => {
-          if(a.carbondioxide > b.carbondioxide){
-            // console.log(a.carbondioxide, b.carbondioxide, -1)
-            
-            return -1;
-          } else {
-            // console.log(a.carbondioxide, b.carbondioxide, 1)
-            return 1;
-          }
-        });
-       var listCountries = this.state.countries.map(mapList);
-      console.log('Aftersorting', mapCharater)
+    var listCountries;
+    if (this.state.showGarbageData === false) {
+         listCountries =  this.state.countries.sort((a, b) => 
+                              ((b.carbondioxide * ( b.newBirth - b.newDeath)).toFixed(2)) - ((a.carbondioxide * ( a.newBirth - a.newDeath)).toFixed(2))
+                            ).map(mapList);
+    } else {
+        listCountries = this.state.countries.sort((a, b) => 
+            (b.garbageProduction.toFixed(2)) - (a.garbageProduction.toFixed(2))
+            ).map(mapList);
+      }
      
       return (
         <div className="App">
