@@ -30,6 +30,12 @@ code {
   width: 100%;
   background-color: #eceaecbd;
 } 
+#exampleCustomSwitch {
+  margin: 0px auto;
+}
+.tableChange {
+  margin: 0px auto;
+}
 .countryTable {
   margin: 0px auto;
 }

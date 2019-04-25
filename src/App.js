@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Helmet} from "react-helmet";
-import { Container, Row, Col, Table, Button} from 'reactstrap';
+import { Container, Row, Col, Table, Button, FormGroup, Label, Input, CustomInput} from 'reactstrap';
 import 'topojson';
 import Datamap from 'datamaps';
 import countries from './data';
@@ -217,7 +217,8 @@ class App extends Component {
       this.myMap = React.createRef();
       this.state = {
         countries: countries,
-        showGarbageData: false
+        showGarbageData: false,
+        noOfCountriesOnTable: countries.length
       };
       setInterval(this.updateMap, 1000);
     }
@@ -294,11 +295,9 @@ class App extends Component {
             changePopulation['population'] = countries[x]['population'];
             var birthHappened = false;
             var deathHappened = false;
-
             if ( randomNumber < birthRatePerSec ) {
               birthHappened = true;
             }
-  
             if ( randomNumber < (deathRatePerSec)) {
               deathHappened = true;
             }
@@ -338,11 +337,17 @@ class App extends Component {
             }
         );
     }
-  }
+    }
     handleButtonChange = () => {
       this.setState(prevstate => ({
         showGarbageData: !prevstate.showGarbageData
       }));
+    }
+
+    handleTableCountriesToShow = (event) => {
+      this.setState({
+        noOfCountriesOnTable: parseInt(event.target.value, 10)
+      })
     }
     componentDidMount() {
       this.drawMap();
@@ -356,10 +361,10 @@ class App extends Component {
       if(country.newBirth > 0 || country.newDeath > 0){
         return(
           <tr key={i}>
-            <td><img className="img-fluid flagImage" src={"/country-flags/" + country.code.toLowerCase() + ".svg"} alt={ country.name + "Flag"} /></td>
-            <th scope="row">{ country.name }</th>
-            <td>{ '+' + country.newBirth + ' ,  -' + country.newDeath}</td>
-            <td>
+            <td width="20"><img className="img-fluid flagImage" src={"/country-flags/" + country.code.toLowerCase() + ".svg"} alt={ country.name + "Flag"} /></td>
+            <th scope="row" width="20">{ country.name }</th>
+            <td width="20">{ '+' + country.newBirth + ' ,  -' + country.newDeath}</td>
+            <td width="40">
                 { this.state.showGarbageData === false ? (
                       +(country.carbondioxide * ( country.newBirth - country.newDeath)).toFixed(2)
                   ) : (
@@ -371,16 +376,17 @@ class App extends Component {
           )
         }
     }
-    var listCountries;
-    if (this.state.showGarbageData === false) {
-         listCountries =  this.state.countries.sort((a, b) => 
-                              ((b.carbondioxide * ( b.newBirth - b.newDeath)).toFixed(2)) - ((a.carbondioxide * ( a.newBirth - a.newDeath)).toFixed(2))
-                            ).map(mapList);
-    } else {
-        listCountries = this.state.countries.sort((a, b) => 
-            (b.garbageProduction.toFixed(2)) - (a.garbageProduction.toFixed(2))
-            ).map(mapList);
-      }
+      var listCountries;
+      if (this.state.showGarbageData === false) {
+          listCountries =  this.state.countries.sort((a, b) => 
+                                ((b.carbondioxide * ( b.newBirth - b.newDeath)).toFixed(2)) - ((a.carbondioxide * ( a.newBirth - a.newDeath)).toFixed(2))
+                              ).slice(0, this.state.noOfCountriesOnTable).map(mapList);
+      } else {
+        console.log(typeof(this.state.noOfCountriesOnTable), this.state.countries.length);
+          listCountries = this.state.countries.sort((a, b) => 
+              (b.garbageProduction.toFixed(2)) - (a.garbageProduction.toFixed(2))
+              ).map(mapList);
+        }
      
       return (
         <div className="App">
@@ -400,19 +406,28 @@ class App extends Component {
             <div className="main container-fluid">
               <Row>
                 <Col xs="12">
-                  <div id="container" ref={this.myMap} className="mapDiagram" />
+                  <div id="container" ref={this.myMap} className="mapDiagram">
+                  </div>
                 </Col>
               </Row>
               <hr />
-              <Row>
-                <Col sm="12">
-                  <Button onClick={this.handleButtonChange}>
-                      {  this.state.showGarbageData === false ? 
-                                      "Show Marginal Garbage Production" : "Show Marginal CO2Emission "
+              <Row className="tableChange">
+                <Col sm="6">
+                  <CustomInput onClick={this.handleButtonChange} type="switch" id="exampleCustomSwitch" name="customSwitch" label= {  this.state.showGarbageData === false ? 
+                              "Marginal Garbage Production" : "Marginal CO2Emission "
 
-                      }
-                  </Button>
-                  <hr/>
+                      } />
+                </Col>
+                <Col sm="6">
+                  <FormGroup>
+                    <Input type="select" name="select" id="exampleSelect" onChange={this.handleTableCountriesToShow} value={this.state.noOfCountriesOnTable}>
+                      <option value={this.state.countries.length}>Show All Countries</option>
+                      <option value="10">Show Top 10 Countries</option>
+                      <option value="20">Show Top 20 Countries</option>
+                      <option value="50">Show Top 50 Countries</option>
+                      <option value="100">Show Top 100 Countries</option>
+                    </Input>
+                  </FormGroup>
                 </Col>
               </Row>
               <Row>
@@ -420,12 +435,12 @@ class App extends Component {
                   <Table>
                     <thead>
                       <tr>
-                          <th>Flag</th>
-                          <th>Country</th>
-                          <th>Population</th>
-                          <th> 
+                          <th width="20">Flag</th>
+                          <th width="20">Country</th>
+                          <th width="20">Population</th>
+                          <th width="40"> 
                             { this.state.showGarbageData === false ? 
-                                            "Marginal CO2" : "Marginal Garbage Prod."
+                                 "Marginal CO2 Emission" : "Marginal Garbage Production."
                             }
                           </th>
                       </tr>
