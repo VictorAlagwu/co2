@@ -338,7 +338,7 @@ class App extends Component {
         );
     }
     }
-    handleButtonChange = () => {
+    handleToggle = () => {
       this.setState(prevstate => ({
         showGarbageData: !prevstate.showGarbageData
       }));
@@ -413,7 +413,7 @@ class App extends Component {
               <hr />
               <Row className="tableChange">
                 <Col sm="6">
-                  <CustomInput onClick={this.handleButtonChange} type="switch" id="exampleCustomSwitch" name="customSwitch" label= {  this.state.showGarbageData === false ? 
+                  <CustomInput onClick={this.handleToggle} type="switch" id="exampleCustomSwitch" name="customSwitch" label= {  this.state.showGarbageData === false ? 
                               "Marginal Garbage Production" : "Marginal CO2Emission "
 
                       } />
