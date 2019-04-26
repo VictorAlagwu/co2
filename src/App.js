@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Helmet} from "react-helmet";
-import { Container, Row, Col, Table, Button, FormGroup, Label, Input, CustomInput} from 'reactstrap';
+import { Container, Row, Col, Table, FormGroup, Input, CustomInput, Nav, NavItem, NavLink} from 'reactstrap';
 import 'topojson';
 import Datamap from 'datamaps';
 import countries from './data';
@@ -204,6 +204,15 @@ var defaultColorCodes = {
   HUN: '#000000',
   BTN: '#000000',
   SVN: '#000000',
+  LVA: '#000000',
+  EST: '#000000',
+  JOR: '#000000',
+  FJI: '#000000',
+  GEO: '#000000',
+  HRV: '#000000',
+  OMN: '#000000',
+  MDA: '#000000',
+  LTU: '#000000'
 };
 
 document.addEventListener("visibilitychange", function() {
@@ -396,9 +405,23 @@ class App extends Component {
             <link rel="canonical" href="#" />
           </Helmet>
           <Container fluid>
+            <div className="nav">
+              <Nav>
+                <NavItem>
+                  <NavLink href="#">CO2 App</NavLink>
+                </NavItem>
+              </Nav>
+            </div>
+            <br/>
+            <br/>
             <div className="header text-center">
               <Row>
-                <Col sm="12">CO2 Map - Birth and Death Rate</Col>
+                <Col sm="12">
+                  <h3>CO2 Map - Birth and Death Rate</h3>
+                  <p>
+                    Get the current birth and death rate analysis
+                  </p>
+                </Col>
               </Row>
             </div>
             <hr />
@@ -411,23 +434,22 @@ class App extends Component {
                 </Col>
               </Row>
               <hr />
-              <Row className="tableChange">
-                <Col sm="6">
-                  <CustomInput onClick={this.handleToggle} type="switch" id="exampleCustomSwitch" name="customSwitch" label= {  this.state.showGarbageData === false ? 
-                              "Marginal Garbage Production" : "Marginal CO2Emission "
+              <Row>
+                <Col sm="9" className="tableChange">
+                
+                  <CustomInput className="text-left" onClick={this.handleToggle} id="exampleCustomSwitch" type="switch"  name="customSwitch" label= {  this.state.showGarbageData === false ? 
+                                "Marginal Garbage Production" : "Marginal CO2Emission " 
 
-                      } />
-                </Col>
-                <Col sm="6">
-                  <FormGroup>
-                    <Input type="select" name="select" id="exampleSelect" onChange={this.handleTableCountriesToShow} value={this.state.noOfCountriesOnTable}>
+                       } /> 
+                  <FormGroup className="text-right">
+                    <Input type="select" name="select" onChange={this.handleTableCountriesToShow} value={this.state.noOfCountriesOnTable} className="selectOption">
                       <option value={this.state.countries.length}>Show All Countries</option>
                       <option value="10">Show Top 10 Countries</option>
                       <option value="20">Show Top 20 Countries</option>
                       <option value="50">Show Top 50 Countries</option>
                       <option value="100">Show Top 100 Countries</option>
                     </Input>
-                  </FormGroup>
+                  </FormGroup> 
                 </Col>
               </Row>
               <Row>

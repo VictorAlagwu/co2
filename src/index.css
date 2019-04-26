@@ -12,6 +12,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.nav {
+  padding-top: 10px;
+}
 
 .mapDiagram {
   transform: rotateX(180deg);
@@ -34,7 +37,7 @@ code {
   margin: 0px auto;
 }
 .tableChange {
-  margin: 0px auto;
+  margin: 0px auto !important;
 }
 .countryTable {
   margin: 0px auto;
@@ -43,3 +46,11 @@ code {
   margin-right: 10px;
   width: 40px;
 }
+.selectOption {
+  display: inline-block !important;
+  width: 50% !important;
+}
+.custom-control {
+  position: absolute !important;
+}
+
