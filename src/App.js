@@ -206,10 +206,8 @@ var defaultColorCodes = {
   SVN: '#000000',
   LVA: '#000000',
   EST: '#000000',
-  JOR: '#000000',
   FJI: '#000000',
   GEO: '#000000',
-  HRV: '#000000',
   OMN: '#000000',
   MDA: '#000000',
   LTU: '#000000'
@@ -219,7 +217,6 @@ document.addEventListener("visibilitychange", function() {
   document.visibilityState === "hidden" ? windowVisible = false : windowVisible = true;
 });
 
-//Each Country get its own timer, then inside a forloop, we run different for a country
 class App extends Component {
     constructor(props) {
       super(props)
@@ -401,7 +398,7 @@ class App extends Component {
         <div className="App">
           <Helmet>
             <meta charSet="utf-8" />
-            <title>CO2 Emission</title>
+            <title>CO2 App</title>
             <link rel="canonical" href="#" />
           </Helmet>
           <Container fluid>
