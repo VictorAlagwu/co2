@@ -19,12 +19,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * ~Made it Upside down~
 * ~Sort List base on marginal CO2Emission -- marginal Garbage~
 * ~Check code and refactor to just one timer, but still retain same property~
-
-* Check and verify the data in Data.js, and use one year for all data 
-* Refactor code
-
 * ~Remove the space between the map (Up and down)~
-* Fix the tooltip , check the x and y
 * ~Make the water light blue in the map~
 * ~Table should have two different color~
 * Make it embedded, in the embedded widget, show the top 5, make it responsive and table smaller and scroller
+* Check and verify the data in Data.js, and use one year for all data 
+* Fix the tooltip , check the x and y
+* Refactor code
