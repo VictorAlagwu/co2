@@ -12,7 +12,7 @@ class MapTable extends Component {
           return(
             <tr key={i}>
               <td width="20"><img className="img-fluid flagImage" src={"/country-flags/" + country.code.toLowerCase() + ".svg"} alt={ country.name + "Flag"} /></td>
-              <th scope="row" width="20">{ country.name }</th>
+              <td width="20">{ country.name }</td>
               <td width="20">{ '+' + country.newBirth + ' ,  -' + country.newDeath}</td>
               <td width="40">
                   { this.props.showGarbageData === false ? (
@@ -60,13 +60,13 @@ class MapTable extends Component {
             </Row>
             <Row>
             <Col sm="6" className="countryTable">
-              <Table>
+              <Table className="table-striped">
                 <thead>
                   <tr>
-                      <th width="20">Flag</th>
-                      <th width="20">Country</th>
-                      <th width="20">Population</th>
-                      <th width="40"> 
+                      <th scope="col" width="20">Flag</th>
+                      <th scope="col" width="20">Country</th>
+                      <th scope="col" width="20">Population</th>
+                      <th scope="col" width="40"> 
                         { this.props.showGarbageData === false ? 
                              "Marginal CO2 Emission" : "Marginal Garbage Production."
                         }

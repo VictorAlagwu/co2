@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
-import {Col, Row, Nav, NavItem, NavLink} from 'reactstrap';
+import {Col, Row} from 'reactstrap';
 
 class Header extends Component {
     render () {
         return (
         <div>
-            <div className="nav">
-                <Nav>
-                    <NavItem>
-                        <NavLink href="#">CO2 App</NavLink>
-                    </NavItem>
-                </Nav>
-            </div>
             <br/>
             <div className="header text-center">
                 <Row>

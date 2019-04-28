@@ -45,7 +45,7 @@ class App extends Component {
           element: document.getElementById("container"),
           scope: 'world',
           responsive: true,
-          projection: 'equirectangular',
+          projection: 'mercator',
           fills: {
             'Birth': '#ffc107',
             'Death': '#dc3545',

@@ -27,11 +27,8 @@ code {
   
 }
 #container svg {
-  /* position: unset !important; */
-  /* width: unset !important; */
-  /* padding-top: 40px; */
   width: 100%;
-  background-color: #eceaecbd;
+  background-color: #e4f1fe;
 } 
 #exampleCustomSwitch {
   margin: 0px auto;

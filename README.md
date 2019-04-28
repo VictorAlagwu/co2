@@ -22,3 +22,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 * Check and verify the data in Data.js, and use one year for all data 
 * Refactor code
+
+* ~Remove the space between the map (Up and down)~
+* Fix the tooltip , check the x and y
+* ~Make the water light blue in the map~
+* ~Table should have two different color~
+* Make it embedded, in the embedded widget, show the top 5, make it responsive and table smaller and scroller
