@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { Container} from 'reactstrap';
+import React, { Component, Fragment } from 'react';
+// import { Container} from 'reactstrap';
+import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
 import countries from './data';
 import defaultColorCodes from './defaultColorCodes';
 import 'topojson';
@@ -7,6 +8,7 @@ import Datamap from 'datamaps';
 import Map from './components/Map';
 import MapTable from './components/MapTable';
 import Header from './components/Header';
+import Iframe from './components/Iframe';
 
 
 for (var x = 0; x < countries.length; x++) {
@@ -28,7 +30,9 @@ class App extends Component {
       this.state = {
         countries: countries,
         showGarbageData: false,
-        noOfCountriesOnTable: countries.length
+        noOfCountriesOnTable: countries.length,
+        x: 0,
+        y: 0
       };
       setInterval(this.updateMap, 1000);
     }
@@ -81,8 +85,9 @@ class App extends Component {
           },
           geographyConfig: {
             borderColor: '#808080',
-            highlightOnHover: false,
+            highlightOnHover: true,
             popupOnHover: true,
+            highlightBorderColor: 'white',
             highlightBorderWidth: 2,
           
         }
@@ -91,6 +96,14 @@ class App extends Component {
         
         // worldMap.legend();
         this.worldMap = worldMap;
+      }
+
+      _onMouseMove = (e) => {
+        this.setState(prevState => ({ 
+          x: prevState.e.screenX, 
+          y: prevState.e.screenY 
+        })
+        );
       }
 
       updateMap = () => {
@@ -165,12 +178,13 @@ class App extends Component {
       }
 
     render() {
+      var tar = document.getElementsByClassName('datamaps-hoverover');
+      // tar.style.top = this.state.x;
+      // tar.style.left = this.state.y;
+      console.log(tar.style);
       return (
-        <div className="App">
-            <meta charSet="utf-8" />
-            <title>CO2 App</title>
-            <link rel="canonical" href="#" />
-          <Container fluid>
+       <Fragment>
+          <MDBContainer>
           
             <Header />
             <div className="main container-fluid">
@@ -182,9 +196,10 @@ class App extends Component {
                       countries={this.state.countries} 
                       noOfCountriesOnTable={this.state.noOfCountriesOnTable} 
                       />
+                {/* <Iframe /> */}
             </div>
-          </Container> 
-        </div>
+          </MDBContainer> 
+        </Fragment>
       );
     }
  
