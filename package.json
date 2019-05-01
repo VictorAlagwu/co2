@@ -12,9 +12,11 @@
     "popper.js": "^1.14.7",
     "react": "^16.8.2",
     "react-bootstrap-toggle": "^2.3.2",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.2",
     "react-helmet": "^5.2.0",
     "react-scripts": "2.1.5",
+    "react-syntax-highlighter": "^10.2.1",
     "reactstrap": "^7.1.0",
     "topojson": "^3.0.2",
     "typescript": "^3.3.3"

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Row, Col, Table, CustomInput, FormGroup, Input } from 'reactstrap';
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { Table, CustomInput, FormGroup, Input } from 'reactstrap';
+import { MDBRow, MDBCol } from "mdbreact";
 
 
 class MapTable extends Component {

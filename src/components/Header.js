@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {Col, Row} from 'reactstrap';
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { MDBRow, MDBCol } from "mdbreact";
 class Header extends Component {
     render () {
         return (

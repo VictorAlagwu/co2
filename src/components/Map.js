@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import { Row, Col} from 'reactstrap';
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import {  MDBRow, MDBCol } from "mdbreact";
 
 class Map extends Component {
 

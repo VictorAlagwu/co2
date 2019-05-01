@@ -1,6 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment} from 'react';
 // import { Container} from 'reactstrap';
-import { MDBContainer, MDBRow, MDBCol } from "mdbreact";
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter
+} from "mdbreact";
 import countries from './data';
 import defaultColorCodes from './defaultColorCodes';
 import 'topojson';
@@ -8,6 +9,9 @@ import Datamap from 'datamaps';
 import Map from './components/Map';
 import MapTable from './components/MapTable';
 import Header from './components/Header';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Iframe from './components/Iframe';
 
 
@@ -32,11 +36,12 @@ class App extends Component {
         showGarbageData: false,
         noOfCountriesOnTable: countries.length,
         x: 0,
-        y: 0
+        y: 0,
+        showEmbeddedCode: false,
+        copied: false
       };
       setInterval(this.updateMap, 1000);
     }
-
     resize = () => {
       if (this.worldMap) {
           this.worldMap.resize();
@@ -165,6 +170,17 @@ class App extends Component {
           showGarbageData: !prevstate.showGarbageData
         }));
       }
+    
+    
+      onCopy = () => {
+        this.setState({copied: true});
+      };
+    
+      showEmbeddedWidget = () => {
+        this.setState(prevstate => ({
+          showEmbeddedCode: !prevstate.showEmbeddedCode
+        }));
+      }
 
       handleTableCountriesToShow = (event) => {
         this.setState({
@@ -181,14 +197,43 @@ class App extends Component {
       var tar = document.getElementsByClassName('datamaps-hoverover');
       // tar.style.top = this.state.x;
       // tar.style.left = this.state.y;
-      console.log(tar.style);
+      console.log(this.state.x);
+      const codeString = 
+                "<div className='embed-responsive embed-responsive-21by9'>\n" + 
+                "<iframe className='embed-responsive-item' title='myco2' src='https://reactco2emission.netlify.com'>\n" + 
+                    "</iframe>\n" +
+                "</div>";
       return (
        <Fragment>
           <MDBContainer>
-          
             <Header />
             <div className="main container-fluid">
               <Map mapRef= {this.myMap} />
+              <MDBBtn color="info" rounded onClick={this.showEmbeddedWidget}>
+                  Get Embeddable Widget Code
+              </MDBBtn>
+              {/* Modal code below: */}
+              
+              <MDBModal isOpen={this.state.showEmbeddedCode} toggle={this.showEmbeddedWidget}>
+                <MDBModalHeader
+                  className="text-center"
+                  titleClass="w-100 font-weight-bold"
+                  toggle={this.showEmbeddedWidget}
+                >
+                 {this.state.copied ? <span >Copied.</span> : null}
+                 
+                </MDBModalHeader>
+                <MDBModalBody>
+                  <CopyToClipboard 
+                      text={codeString}
+                      onCopy={this.onCopy} >
+                      <SyntaxHighlighter language='javascript' style={docco}>{codeString}</SyntaxHighlighter>
+                             </CopyToClipboard>          
+                  </MDBModalBody>
+                <MDBModalFooter className="justify-content-center">
+                </MDBModalFooter>
+              </MDBModal>
+
               <MapTable 
                       handleToggle={this.handleToggle}
                       handleTableCountriesToShow={this.handleTableCountriesToShow}
@@ -196,7 +241,7 @@ class App extends Component {
                       countries={this.state.countries} 
                       noOfCountriesOnTable={this.state.noOfCountriesOnTable} 
                       />
-                {/* <Iframe /> */}
+               
             </div>
           </MDBContainer> 
         </Fragment>
