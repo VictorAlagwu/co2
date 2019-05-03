@@ -50,7 +50,7 @@ code {
   width: 50% !important;
 }
 .custom-control {
-  position: absolute !important;
+  /* position: absolute !important; */
 }
 
 /* Change this breakpoint if you change the breakpoint of the navbar */

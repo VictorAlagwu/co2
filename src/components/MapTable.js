@@ -13,7 +13,7 @@ class MapTable extends Component {
             <tr key={i}>
               <td width="20"><img className="img-fluid flagImage" src={"/country-flags/" + country.code.toLowerCase() + ".svg"} alt={ country.name + "Flag"} /></td>
               <td width="20">{ country.name }</td>
-              <td width="20">{ '+' + country.newBirth + ' ,  -' + country.newDeath}</td>
+              <td width="20">{ '+' + country.newBirth + ' '}<small> ({ country.population.toLocaleString() })</small></td>
               <td width="40">
                   { this.props.showGarbageData === false ? (
                         +(country.carbondioxide * ( country.newBirth - country.newDeath)).toFixed(2)
@@ -44,8 +44,7 @@ class MapTable extends Component {
               <MDBCol lg="9" className="tableChange">
               
                 <CustomInput className="text-left" onClick={this.props.handleToggle} id="exampleCustomSwitch" type="switch"  name="customSwitch" label= {  this.props.showGarbageData === false ? 
-                              "Marginal Garbage Production" : "Marginal CO2Emission " 
-
+                            "Marginal Garbage Production" : "Marginal CO2Emission " 
                       } /> 
                 <FormGroup className="text-right">
                   <Input type="select" name="select" onChange={this.props.handleTableCountriesToShow} value={this.props.noOfCountriesOnTable} className="selectOption animate slideIn" >

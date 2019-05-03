@@ -21,7 +21,10 @@ for (var x = 0; x < countries.length; x++) {
   countries[x]['garbageProduction'] = 1;
 }
 var windowVisible = true;
-
+var widgetSnippet = document.getElementById('widgetSnippet');
+console.log(widgetSnippet);
+// widgetSnippet.contentWindow.document.getElementByClassName("widgetButton").style.display='none';
+// frame.contentWindow.document.getElementById("widgetButton").style.display='none';
 
 document.addEventListener("visibilitychange", function() {
   document.visibilityState === "hidden" ? windowVisible = false : windowVisible = true;
@@ -197,10 +200,10 @@ class App extends Component {
       var tar = document.getElementsByClassName('datamaps-hoverover');
       // tar.style.top = this.state.x;
       // tar.style.left = this.state.y;
-      console.log(this.state.x);
+      // console.log(this.state.x, this.state.y);
       const codeString = 
-                "<div className='embed-responsive embed-responsive-21by9'>\n" + 
-                "<iframe className='embed-responsive-item' title='myco2' src='https://reactco2emission.netlify.com'>\n" + 
+                "<div class='embed-responsive embed-responsive-21by9'>\n" + 
+                "<iframe class='embed-responsive-item' id='widgetSnippet' title='myco2' src='https://reactco2emission.netlify.com'>\n" + 
                     "</iframe>\n" +
                 "</div>";
       return (
@@ -209,7 +212,7 @@ class App extends Component {
             <Header />
             <div className="main container-fluid">
               <Map mapRef= {this.myMap} />
-              <MDBBtn color="info" rounded onClick={this.showEmbeddedWidget}>
+              <MDBBtn color="info" rounded onClick={this.showEmbeddedWidget} id="widgetButton">
                   Get Embeddable Widget Code
               </MDBBtn>
               {/* Modal code below: */}
@@ -233,7 +236,7 @@ class App extends Component {
                 <MDBModalFooter className="justify-content-center">
                 </MDBModalFooter>
               </MDBModal>
-
+<br></br><hr />
               <MapTable 
                       handleToggle={this.handleToggle}
                       handleTableCountriesToShow={this.handleTableCountriesToShow}
