@@ -97,9 +97,6 @@ class App extends Component {
             popupOnHover: true,
             highlightBorderColor: 'white',
             highlightBorderWidth: 2,
-          },
-          popupTemplate: function(geo, data) {
-                return '<div> Victor ' + data.name +'</div>'
           }
           });
        
@@ -232,18 +229,18 @@ class App extends Component {
                               "#widgetButton {\n" +
                                 "  display: none;\n" +
                               " }\n" +
-                        "</style>" +
-                "<div class='embed-responsive embed-responsive-21by9'>\n" + 
-                "<iframe class='embed-responsive-item' id='widgetSnippet' title='myco2' src='https://reactco2emission.netlify.com'>\n" + 
-                    "</iframe>\n" +
-                "</div>";
+                        "</style>\n" +
+                        "<div class='embed-responsive embed-responsive-21by9'>\n" + 
+                          "    <iframe class='embed-responsive-item widgetButton' id='widgetSnippet' title='myco2' src='https://reactco2emission.netlify.com'>\n" + 
+                          "    </iframe>\n" +
+                        "</div>";
       return (
        <Fragment>
           <MDBContainer>
             <Header />
             <div className="main container-fluid">
               <Map mapRef= {this.myMap} makeMouseMove={this._onMouseMove} />
-              <MDBBtn color="info" rounded onClick={this.showEmbeddedWidget} id="widgetButton">
+              <MDBBtn color="info" rounded onClick={this.showEmbeddedWidget} id="widgetButton" data-class="widgetButton">
                   Get Embeddable Widget Code
               </MDBBtn>
               {/* Modal code below: */}
@@ -262,7 +259,7 @@ class App extends Component {
                       text={codeString}
                       onCopy={this.onCopy} >
                       <SyntaxHighlighter language='javascript' style={docco}>{codeString}</SyntaxHighlighter>
-                             </CopyToClipboard>          
+                    </CopyToClipboard>          
                   </MDBModalBody>
                 <MDBModalFooter className="justify-content-center">
                 </MDBModalFooter>

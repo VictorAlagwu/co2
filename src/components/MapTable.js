@@ -42,7 +42,6 @@ class MapTable extends Component {
           <div>
             <MDBRow>
               <MDBCol lg="9" className="tableChange">
-              
                 <CustomInput className="text-left" onClick={this.props.handleToggle} id="exampleCustomSwitch" type="switch"  name="customSwitch" label= {  this.props.showGarbageData === false ? 
                             "Marginal Garbage Production" : "Marginal CO2Emission " 
                       } /> 
