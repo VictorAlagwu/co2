@@ -12,7 +12,7 @@ class Map extends Component {
         <div>
             <MDBRow>
               <MDBCol lg="12" >
-                <div id="container" ref={this.props.mapRef} className="mapDiagram">
+                <div id="container" ref={this.props.mapRef} className="mapDiagram" onMouseMove={this.props.makeMouseMove}>
                 </div>
               </MDBCol>
             </MDBRow>

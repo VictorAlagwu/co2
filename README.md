@@ -28,3 +28,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Refactor code
 * Population Increase
 * When embedded, remove "Embed Widget button" and "Show All Countries Dropdown"
+* Armenia

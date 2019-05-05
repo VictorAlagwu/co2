@@ -97,84 +97,93 @@ class App extends Component {
             popupOnHover: true,
             highlightBorderColor: 'white',
             highlightBorderWidth: 2,
-          
-        }
+          },
+          popupTemplate: function(geo, data) {
+                return '<div> Victor ' + data.name +'</div>'
+          }
           });
        
         
         // worldMap.legend();
         this.worldMap = worldMap;
       }
-
+      
       _onMouseMove = (e) => {
-        this.setState(prevState => ({ 
-          x: prevState.e.screenX, 
-          y: prevState.e.screenY 
-        })
-        );
-      }
+        // if (document.querySelector('.hoverinfo')){
+        //   let mapTooltip = document.querySelector('.datamaps-hoverover');
+        //   let rect = e.target.getBoundingClientRect();
+        //   mapTooltip.style.left = e.clientX - rect.left + 'px';
+        //   mapTooltip.style.top = e.clientY - rect.top + 'px';
+          // console.log(document.querySelector('.datamaps-hoverover').style.left)
 
+          // let x = e.pageX - document.querySelector('.datamaps-hoverover').offsetLeft+'px';
+          // let y = e.pageY - document.querySelector('.datamaps-hoverover').offsetTop+'px';
+          //108, 82 "Default tooltip behaviour"  [2]: https://imgur.com/sSGQrXo "After modifying code"  [3]: https://imgur.com/4Vgjz6o "HTML View when the styles change"
+          // e.pageX - this.offsetLeft
+          //<blockquote class="imgur-embed-pub" lang="en" data-id="a/OR8lg48"><a href="//imgur.com/OR8lg48"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+        // }
+      }
+      
       updateMap = () => {
         if(windowVisible) {
-          var changePopulation = {};
-          for (var x = 0; x < countries.length; x++) {
-              var birthRatePerSec = (countries[x]['birthRate'] * countries[x]['population']) / 31557600000;
-              var deathRatePerSec = (countries[x]['deathRate'] * countries[x]['population']) / 31557600000;
-    
-              var randomNumber = Math.random();
-              changePopulation['population'] = countries[x]['population'];
-              var birthHappened = false;
-              var deathHappened = false;
-              if ( randomNumber < birthRatePerSec ) {
-                birthHappened = true;
-              }
-              if ( randomNumber < (deathRatePerSec)) {
-                deathHappened = true;
-              }
-    
-              if (birthHappened && deathHappened) {
-                changePopulation[countries[x]['codes']] = '#EE7B26';
-                countries[x]['newBirth']++;
-                countries[x]['newDeath']++;
-                countries[x]['garbageProduction'] =+ randomNumber;
+            var changePopulation = {};
+            for (var x = 0; x < countries.length; x++) {
+                var birthRatePerSec = (countries[x]['birthRate'] * countries[x]['population']) / 31557600000;
+                var deathRatePerSec = (countries[x]['deathRate'] * countries[x]['population']) / 31557600000;
+      
+                var randomNumber = Math.random();
+                changePopulation['population'] = countries[x]['population'];
+                var birthHappened = false;
+                var deathHappened = false;
+                if ( randomNumber < birthRatePerSec ) {
+                  birthHappened = true;
+                }
+                if ( randomNumber < (deathRatePerSec)) {
+                  deathHappened = true;
+                }
+      
+                if (birthHappened && deathHappened) {
+                  changePopulation[countries[x]['codes']] = '#EE7B26';
+                  countries[x]['newBirth']++;
+                  countries[x]['newDeath']++;
+                  countries[x]['garbageProduction'] =+ randomNumber;
 
-              } else if (birthHappened) {
-                changePopulation[countries[x]['codes']] = '#ffc107';
-                countries[x]['newBirth']++;
-                countries[x]['population']++;
-                countries[x]['garbageProduction'] =+ randomNumber;
+                } else if (birthHappened) {
+                  changePopulation[countries[x]['codes']] = '#ffc107';
+                  countries[x]['newBirth']++;
+                  countries[x]['population']++;
+                  countries[x]['garbageProduction'] =+ randomNumber;
 
-              } else if (deathHappened) {
-                changePopulation[countries[x]['codes']] = '#dc3545';
-                countries[x]['newDeath']++;
-                countries[x]['population']--;
-                countries[x]['garbageProduction'] =+ randomNumber;
-                //Change back to default Color
-            
-              }
-          }
-
-          this.setState((prevState, props) => {
-            return { 
-              countries: prevState.countries
+                } else if (deathHappened) {
+                  changePopulation[countries[x]['codes']] = '#dc3545';
+                  countries[x]['newDeath']++;
+                  countries[x]['population']--;
+                  countries[x]['garbageProduction'] =+ randomNumber;
+                  //Change back to default Color
+              
+                }
             }
-          }, () => { 
-            window.addEventListener("resize", this.resize());
-              this.worldMap.updateChoropleth(changePopulation)
-              setTimeout( () => {
-                this.worldMap.updateChoropleth(defaultColorCodes)
-              }, 500);
+
+            this.setState((prevState, props) => {
+              return { 
+                countries: prevState.countries
               }
-          );
-      }
+            }, () => { 
+              window.addEventListener("resize", this.resize());
+                this.worldMap.updateChoropleth(changePopulation)
+                setTimeout( () => {
+                  this.worldMap.updateChoropleth(defaultColorCodes)
+                }, 500);
+                }
+            );
+          }
       }
       handleToggle = () => {
         this.setState(prevstate => ({
           showGarbageData: !prevstate.showGarbageData
         }));
       }
-    
-    
+
       onCopy = () => {
         this.setState({copied: true});
       };
@@ -197,11 +206,33 @@ class App extends Component {
       }
 
     render() {
-      var tar = document.getElementsByClassName('datamaps-hoverover');
-      // tar.style.top = this.state.x;
-      // tar.style.left = this.state.y;
-      // console.log(this.state.x, this.state.y);
-      const codeString = 
+      const codeString = "<style>\n"+
+                            ".embed-responsive {\n" +
+                             "  position:relative;\n  display:block;\n  width:100%;\n  padding:0;\n  overflow:hidden\n"+
+                           " }\n" +
+                            ".embed-responsive::before {\n" +
+                              "  display:block;\n  content:''" +
+                           " }\n" +
+                            ".embed-responsive .embed-responsive-item,.embed-responsive embed,.embed-responsive iframe {\n" +
+                              "  position:absolute;\n  top:0;\n  bottom:0;\n  left:0;\n  width:100%;\n  " +
+                                "height:100%;\n  border:0" +
+                           " }\n" +
+                            ".embed-responsive-21by9::before {\n" +
+                              "  padding-top:42.857143%\n" +
+                            " }\n" +
+                            ".embed-responsive-16by9::before {\n" +
+                              "  padding-top:56.25%\n" +
+                            " }\n" +
+                            ".embed-responsive-4by3::before {\n" +
+                              "  padding-top:75%\n" +
+                            " }\n" +
+                            ".embed-responsive-1by1::before {\n" +
+                              "  padding-top:100%\n" +
+                              " }\n"+
+                              "#widgetButton {\n" +
+                                "  display: none;\n" +
+                              " }\n" +
+                        "</style>" +
                 "<div class='embed-responsive embed-responsive-21by9'>\n" + 
                 "<iframe class='embed-responsive-item' id='widgetSnippet' title='myco2' src='https://reactco2emission.netlify.com'>\n" + 
                     "</iframe>\n" +
@@ -211,7 +242,7 @@ class App extends Component {
           <MDBContainer>
             <Header />
             <div className="main container-fluid">
-              <Map mapRef= {this.myMap} />
+              <Map mapRef= {this.myMap} makeMouseMove={this._onMouseMove} />
               <MDBBtn color="info" rounded onClick={this.showEmbeddedWidget} id="widgetButton">
                   Get Embeddable Widget Code
               </MDBBtn>
