@@ -84,3 +84,6 @@ code {
 .embed-responsive-1by1::before {
   padding-top:100%
  }
+iframe#widgetSnippet.embed-responsive-item.widgetButton#root.container.container-fluid#widgetButton {
+  display: none;
+ }

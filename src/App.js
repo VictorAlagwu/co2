@@ -199,9 +199,34 @@ class App extends Component {
       }
 
     render() {
-      const codeString = "Copy and paste on your head tag\n"+
-                          "<link ref='stylesheet' href='//reactco2emission.netlify.com/static/css/main.f68a631d.chunk.css'>\n"+
-                          "<script src=''>\n" +
+      const codeString = 
+                          "<style>\n"+
+                          ".embed-responsive {\n" +
+                           "  position:relative;\n  display:block;\n  width:100%;\n  padding:0;\n  overflow:hidden\n"+
+                         " }\n" +
+                          ".embed-responsive::before {\n" +
+                            "  display:block;\n  content:''" +
+                         " }\n" +
+                          ".embed-responsive .embed-responsive-item,.embed-responsive embed,.embed-responsive iframe {\n" +
+                            "  position:absolute;\n  top:0;\n  bottom:0;\n  left:0;\n  width:100%;\n  " +
+                              "height:100%;\n  border:0" +
+                         " }\n" +
+                          ".embed-responsive-21by9::before {\n" +
+                            "  padding-top:42.857143%\n" +
+                          " }\n" +
+                          ".embed-responsive-16by9::before {\n" +
+                            "  padding-top:56.25%\n" +
+                          " }\n" +
+                          ".embed-responsive-4by3::before {\n" +
+                            "  padding-top:75%\n" +
+                          " }\n" +
+                          ".embed-responsive-1by1::before {\n" +
+                            "  padding-top:100%\n" +
+                            " }\n"+
+                            "#widgetButton {\n" +
+                              "  display: none;\n" +
+                            " }\n" +
+                      "</style>\n" +
                         "<div class='embed-responsive embed-responsive-21by9'>\n" + 
                           "    <iframe class='embed-responsive-item widgetButton' id='widgetSnippet' title='myco2' src='https://reactco2emission.netlify.com'>\n" + 
                           "    </iframe>\n" +
@@ -223,7 +248,9 @@ class App extends Component {
                   titleClass="w-100 font-weight-bold"
                   toggle={this.showEmbeddedWidget}
                 >
-                 {this.state.copied ? <span >Copied.</span> : null}
+                "Copy and paste on your head tag"
+                "<link ref='stylesheet' href='//reactco2emission.netlify.com/static/css/main.f68a631d.chunk.css' />"
+                 {this.state.copied ? <span >Copied to clipboard.</span> : null}
                  
                 </MDBModalHeader>
                 <MDBModalBody>

@@ -3,8 +3,8 @@ window.onload = function() {
     if (widgetSnippet) {
         var doc = widgetSnippet.contentDocument? widgetSnippet.contentDocument: widgetSnippet.contentWindow.document;
         var form = doc.getElementById('widgetButton');
-        form.style.display = 'none';
-        console.log(form);
+         form.style.display = 'none';
+        console.log('Worked');
     }
-    
+    console.log('Hello, not working');
 }
