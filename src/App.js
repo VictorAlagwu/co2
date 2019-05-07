@@ -237,6 +237,7 @@ class App extends Component {
             <Header />
             <div className="main container-fluid">
               <Map mapRef= {this.myMap} makeMouseMove={this._onMouseMove} />
+              <div className="widgetContainer">
               <MDBBtn color="info" rounded onClick={this.showEmbeddedWidget} id="widgetButton" data-class="widgetButton">
                   Get Embeddable Widget Code
               </MDBBtn>
@@ -264,6 +265,8 @@ class App extends Component {
                 </MDBModalFooter>
               </MDBModal>
 <br></br><hr />
+              </div>
+              
               <MapTable 
                       handleToggle={this.handleToggle}
                       handleTableCountriesToShow={this.handleTableCountriesToShow}

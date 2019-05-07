@@ -22,10 +22,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * ~Remove the space between the map (Up and down)~
 * ~Make the water light blue in the map~
 * ~Table should have two different color~
-* Make it embedded, in the embedded widget, show the top 5, make it responsive and table smaller and scroller
+* ~Make it embedded, in the embedded widget, show the top 5, make it responsive and table smaller and scroller~
 * Check and verify the data in Data.js, and use one year for all data 
 * Fix the tooltip , check the x and y
 * Refactor code
-* Population Increase
+* ~Population Increase~
 * When embedded, remove "Embed Widget button" and "Show All Countries Dropdown"
-* Armenia

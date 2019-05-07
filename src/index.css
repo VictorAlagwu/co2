@@ -87,3 +87,11 @@ code {
 iframe#widgetSnippet.embed-responsive-item.widgetButton#root.container.container-fluid#widgetButton {
   display: none;
  }
+ table th {
+  position: sticky; 
+  top: 0;
+ }
+ .countryTable {
+  overflow-y: auto; 
+  height: 800px; 
+ }

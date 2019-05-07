@@ -195,7 +195,8 @@ var defaultColorCodes = {
     GEO: '#000000',
     OMN: '#000000',
     MDA: '#000000',
-    LTU: '#000000'
+    LTU: '#000000',
+    ARM: '#000000'
   };
 
   export default defaultColorCodes;
