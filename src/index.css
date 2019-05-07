@@ -84,7 +84,7 @@ code {
 .embed-responsive-1by1::before {
   padding-top:100%
  }
-iframe#widgetSnippet.embed-responsive-item.widgetButton#root.container.container-fluid#widgetButton {
+iframe#widgetSnippet#document.container.container-fluid.widgetContainer#widgetButton {
   display: none;
  }
  table th {
