@@ -7,8 +7,9 @@
    }
   .embed-responsive::before {
     display:block;
-    content:'' }
-  .embed-responsive .embed-responsive-item,.embed-responsive embed,.embed-responsive iframe {
+    content:'' 
+  }
+  .embed-responsive .embed-responsive-item,.embed-responsive iframe {
     position:absolute;
     top:0;
     bottom:0;
@@ -27,7 +28,4 @@
    }
   .embed-responsive-1by1::before {
     padding-top:100%
-   }
- iframe#widgetSnippet.main div.widgetContainer {
-    display: none !important;
    }

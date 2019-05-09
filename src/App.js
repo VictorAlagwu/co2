@@ -170,9 +170,28 @@ class App extends Component {
             );
           }
       }
+
+      inIframe = () => {
+        try {
+          if (window.self !== window.top) {
+            document.querySelector('.widgetContainer').style.display = 'none';
+            document.querySelector('.selectCountriesToShow').style.display = 'none';
+           
+            this.setState({
+                noOfCountriesOnTable: 5
+            });
+
+          } else{ 
+          console.log('Not in Iframe');
+          }
+        } catch (e) {
+          console.log('Not in Iframe : exception');
+        }
+      }
       handleToggle = () => {
         this.setState(prevstate => ({
-          showGarbageData: !prevstate.showGarbageData
+          showGarbageData: !prevstate.showGarbageData,
+        
         }));
       }
 
@@ -192,41 +211,17 @@ class App extends Component {
         })
       }
       componentDidMount() {
+        this.inIframe();
         this.drawMap();
-        // contentDocument
         window.addEventListener("resize", this.resize());
       
       }
 
     render() {
       const codeString = 
-                          "<style>\n"+
-                          ".embed-responsive {\n" +
-                           "  position:relative;\n  display:block;\n  width:100%;\n  padding:0;\n  overflow:hidden\n"+
-                         " }\n" +
-                          ".embed-responsive::before {\n" +
-                            "  display:block;\n  content:''" +
-                         " }\n" +
-                          ".embed-responsive .embed-responsive-item,.embed-responsive embed,.embed-responsive iframe {\n" +
-                            "  position:absolute;\n  top:0;\n  bottom:0;\n  left:0;\n  width:100%;\n  " +
-                              "height:100%;\n  border:0" +
-                         " }\n" +
-                          ".embed-responsive-21by9::before {\n" +
-                            "  padding-top:42.857143%\n" +
-                          " }\n" +
-                          ".embed-responsive-16by9::before {\n" +
-                            "  padding-top:56.25%\n" +
-                          " }\n" +
-                          ".embed-responsive-4by3::before {\n" +
-                            "  padding-top:75%\n" +
-                          " }\n" +
-                          ".embed-responsive-1by1::before {\n" +
-                            "  padding-top:100%\n" +
-                            " }\n"+
-                            "#widgetButton {\n" +
-                              "  display: none !important;\n" +
-                            " }\n" +
-                      "</style>\n" +
+                        "<!-- Copy the link tag and add inside your head tag -->\n"+
+                        "<link rel='stylesheet' type='text/css' href='http://localhost:3000/iframe.css'></link>\n\n"+
+                         
                         "<div class='embed-responsive embed-responsive-21by9'>\n" + 
                           "    <iframe class='embed-responsive-item widgetButton' id='widgetSnippet' title='myco2' src='https://reactco2emission.netlify.com'>\n" + 
                           "    </iframe>\n" +
@@ -249,9 +244,8 @@ class App extends Component {
                   titleClass="w-100 font-weight-bold"
                   toggle={this.showEmbeddedWidget}
                 >
-                "Copy and paste on your head tag"
-                "<link ref='stylesheet' href='//reactco2emission.netlify.com/static/css/main.f68a631d.chunk.css' />"
-                 {this.state.copied ? <span >Copied to clipboard.</span> : null}
+                "Copy and paste on site"
+                 {this.state.copied ? <span > Copied to clipboard.</span> : null}
                  
                 </MDBModalHeader>
                 <MDBModalBody>
@@ -264,7 +258,7 @@ class App extends Component {
                 <MDBModalFooter className="justify-content-center">
                 </MDBModalFooter>
               </MDBModal>
-<br></br><hr />
+              <br></br><hr />
               </div>
               
               <MapTable 

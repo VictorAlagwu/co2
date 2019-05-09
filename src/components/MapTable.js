@@ -45,13 +45,13 @@ class MapTable extends Component {
                 <CustomInput className="text-left" onClick={this.props.handleToggle} id="exampleCustomSwitch" type="switch"  name="customSwitch" label= {  this.props.showGarbageData === false ? 
                             "Marginal Garbage Production" : "Marginal CO2Emission " 
                       } /> 
-                <FormGroup className="text-right">
+                <FormGroup className="text-right selectCountriesToShow">
                   <Input type="select" name="select" onChange={this.props.handleTableCountriesToShow} value={this.props.noOfCountriesOnTable} className="selectOption animate slideIn" >
-                    <option value={this.props.countries.length}>Show All Countries</option>
-                    <option value="10">Show Top 10 Countries</option>
-                    <option value="20">Show Top 20 Countries</option>
-                    <option value="50">Show Top 50 Countries</option>
-                    <option value="100">Show Top 100 Countries</option>
+                    <option value={this.props.countries.length}>All Countries</option>
+                    <option value="10">Top 10 Countries</option>
+                    <option value="20">Top 20 Countries</option>
+                    <option value="50">Top 50 Countries</option>
+                    <option value="100">Top 100 Countries</option>
                   </Input>
                 </FormGroup> 
               </MDBCol>
