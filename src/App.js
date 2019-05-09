@@ -1,5 +1,4 @@
 import React, { Component, Fragment} from 'react';
-// import { Container} from 'reactstrap';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter
 } from "mdbreact";
 import countries from './data';
@@ -102,11 +101,11 @@ class App extends Component {
       }
       
       _onMouseMove = (e) => {
-        // if (document.querySelector('.hoverinfo')){
-        //   let mapTooltip = document.querySelector('.datamaps-hoverover');
-        //   let rect = e.target.getBoundingClientRect();
-        //   mapTooltip.style.left = e.clientX - rect.left + 'px';
-        //   mapTooltip.style.top = e.clientY - rect.top + 'px';
+        if (document.querySelector('.hoverinfo')){
+          let mapTooltip = document.querySelector('.datamaps-hoverover');
+          let rect = e.target.getBoundingClientRect();
+          // mapTooltip.style.left = e.clientX - rect.left + 'px';
+          mapTooltip.style.top = e.clientY - rect.top + 'px';
           // console.log(document.querySelector('.datamaps-hoverover').style.left)
 
           // let x = e.pageX - document.querySelector('.datamaps-hoverover').offsetLeft+'px';
@@ -114,7 +113,7 @@ class App extends Component {
           //108, 82 "Default tooltip behaviour"  [2]: https://imgur.com/sSGQrXo "After modifying code"  [3]: https://imgur.com/4Vgjz6o "HTML View when the styles change"
           // e.pageX - this.offsetLeft
           //<blockquote class="imgur-embed-pub" lang="en" data-id="a/OR8lg48"><a href="//imgur.com/OR8lg48"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
-        // }
+        }
       }
       
       updateMap = () => {
@@ -194,6 +193,7 @@ class App extends Component {
       }
       componentDidMount() {
         this.drawMap();
+        // contentDocument
         window.addEventListener("resize", this.resize());
       
       }
@@ -224,7 +224,7 @@ class App extends Component {
                             "  padding-top:100%\n" +
                             " }\n"+
                             "#widgetButton {\n" +
-                              "  display: none;\n" +
+                              "  display: none !important;\n" +
                             " }\n" +
                       "</style>\n" +
                         "<div class='embed-responsive embed-responsive-21by9'>\n" + 
