@@ -54,8 +54,6 @@ class App extends Component {
           responsive: true,
           projection: 'mercator',
           fills: {
-            'Birth': '#ffc107',
-            'Death': '#dc3545',
             'western': '#296f4b',
             defaultFill: '#000000'
           },
@@ -174,6 +172,20 @@ class App extends Component {
       inIframe = () => {
         try {
           if (window.self !== window.top) {
+
+            //Adding CSS Stylesheet to the iframe
+              var cssId = 'myCss';  
+              if (!document.getElementById(cssId))
+              {
+                  var head  = document.getElementsByTagName('head')[0];
+                  var link  = document.createElement('link');
+                  link.id   = cssId;
+                  link.rel  = 'stylesheet';
+                  link.type = 'text/css';
+                  link.href = 'https://reactco2emission.netlify.com/iframe.css';
+                  link.media = 'all';
+                  head.appendChild(link);
+              }
             document.querySelector('.widgetContainer').style.display = 'none';
             document.querySelector('.selectCountriesToShow').style.display = 'none';
            //TODO: Load 
