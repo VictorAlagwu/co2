@@ -26,5 +26,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Check and verify the data in Data.js, and use one year for all data 
 * Fix the tooltip , check the x and y
 * Refactor code
+* ~Gradient / Stripe of red and yellow~
 * ~Population Increase~
-* When embedded, remove "Embed Widget button" and "Show All Countries Dropdown"
+* ~When embedded, remove "Embed Widget button" and "Show All Countries Dropdown"~

@@ -13,7 +13,7 @@ class MapTable extends Component {
             <tr key={i}>
               <td width="20"><img className="img-fluid flagImage" src={"/country-flags/" + country.code.toLowerCase() + ".svg"} alt={ country.name + "Flag"} /></td>
               <td width="20">{ country.name }</td>
-              <td width="20">{ '+' + country.newBirth + ' '}<small> ({ country.population.toLocaleString() })</small></td>
+              <td width="20">{ '+' + country.newBirth + ' '}<p><small> ({ country.population.toLocaleString() })</small></p></td>
               <td width="40">
                   { this.props.showGarbageData === false ? (
                         +(country.carbondioxide * ( country.newBirth - country.newDeath)).toFixed(2)

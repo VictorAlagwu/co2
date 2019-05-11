@@ -82,14 +82,8 @@ code {
 .embed-responsive-1by1::before {
   padding-top:100%
  }
-/* iframe#widgetSnippet#document.container.container-fluid.widgetContainer#widgetButton {
-  display: none;
- } */
- table th {
-  /* position: sticky;  */
-  /* top: 0; */
- }
  .countryTable {
   overflow-y: auto; 
   height: 800px; 
  }
+

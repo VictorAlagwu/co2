@@ -57,7 +57,7 @@ class App extends Component {
             'Birth': '#ffc107',
             'Death': '#dc3545',
             'western': '#296f4b',
-            defaultFill: "#000000"
+            defaultFill: '#000000'
           },
           data: {
             GRL: {fillKey: 'western'},
@@ -135,7 +135,7 @@ class App extends Component {
                 }
       
                 if (birthHappened && deathHappened) {
-                  changePopulation[countries[x]['codes']] = '#EE7B26';
+                  changePopulation[countries[x]['codes']] = 'url(#redYellow)';
                   countries[x]['newBirth']++;
                   countries[x]['newDeath']++;
                   countries[x]['garbageProduction'] =+ randomNumber;
@@ -176,7 +176,7 @@ class App extends Component {
           if (window.self !== window.top) {
             document.querySelector('.widgetContainer').style.display = 'none';
             document.querySelector('.selectCountriesToShow').style.display = 'none';
-           
+           //TODO: Load 
             this.setState({
                 noOfCountriesOnTable: 5
             });
@@ -212,7 +212,12 @@ class App extends Component {
       }
       componentDidMount() {
         this.inIframe();
+
         this.drawMap();
+        let datamapSVG = document.querySelector('.datamap');
+        datamapSVG.insertAdjacentHTML('afterbegin', '<defs><linearGradient id="redYellow" x1="0%" y1="0%" x2="0%" y2="100%" gradientUnits="userSpaceOnUse"><stop offset="11%" style="stop-color:rgba(255,193,7,1);stop-opacity:1" /><stop offset="87%" style="stop-color:rgba(220,53,69,1);stop-opacity:1" /></linearGradient></defs>');
+
+
         window.addEventListener("resize", this.resize());
       
       }
