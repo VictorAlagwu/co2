@@ -215,7 +215,7 @@ class App extends Component {
 
         this.drawMap();
         let datamapSVG = document.querySelector('.datamap');
-        datamapSVG.insertAdjacentHTML('afterbegin', '<defs><linearGradient id="redYellow" x1="0%" y1="0%" x2="0%" y2="100%" gradientUnits="userSpaceOnUse"><stop offset="11%" style="stop-color:rgba(255,193,7,1);stop-opacity:1" /><stop offset="87%" style="stop-color:rgba(220,53,69,1);stop-opacity:1" /></linearGradient></defs>');
+        datamapSVG.insertAdjacentHTML('afterbegin', '<defs><linearGradient id="redYellow" x1="0%" y1="0%" x2="0%" y2="100%" ><stop offset="11%" style="stop-color:rgba(255,193,7,1);stop-opacity:1" /><stop offset="87%" style="stop-color:rgba(220,53,69,1);stop-opacity:1" /></linearGradient></defs>');
 
 
         window.addEventListener("resize", this.resize());
