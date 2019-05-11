@@ -233,12 +233,12 @@ class App extends Component {
         window.addEventListener("resize", this.resize());
       
       }
-
+      
     render() {
       const codeString = 
                         "<!-- Copy and Paste the section you want -->\n"+
-                        "<div class='embed-responsive embed-responsive-21by9'>\n" + 
-                          "    <iframe class='embed-responsive-item widgetButton' id='widgetSnippet' title='myco2' src='https://reactco2emission.netlify.com'>\n" + 
+                        "<div class='co2Widget'>\n" + 
+                          "    <iframe class='widgetButton' id='widgetSnippet' title='myco2' src='https://reactco2emission.netlify.com' width='640' height='360' frameborder='0'>\n" + 
                           "    </iframe>\n" +
                         "</div>";
       return (
