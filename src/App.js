@@ -236,9 +236,7 @@ class App extends Component {
 
     render() {
       const codeString = 
-                        "<!-- Copy the link tag and add inside your head tag -->\n"+
-                        "<link rel='stylesheet' type='text/css' href='http://localhost:3000/iframe.css'></link>\n\n"+
-                         
+                        "<!-- Copy and Paste the section you want -->\n"+
                         "<div class='embed-responsive embed-responsive-21by9'>\n" + 
                           "    <iframe class='embed-responsive-item widgetButton' id='widgetSnippet' title='myco2' src='https://reactco2emission.netlify.com'>\n" + 
                           "    </iframe>\n" +
