@@ -101,16 +101,14 @@ class App extends Component {
       _onMouseMove = (e) => {
         if (document.querySelector('.hoverinfo')){
           let mapTooltip = document.querySelector('.datamaps-hoverover');
-          let rect = e.target.getBoundingClientRect();
-          // mapTooltip.style.left = e.clientX - rect.left + 'px';
-          mapTooltip.style.top = e.clientY - rect.top + 'px';
-          // console.log(document.querySelector('.datamaps-hoverover').style.left)
-
-          // let x = e.pageX - document.querySelector('.datamaps-hoverover').offsetLeft+'px';
-          // let y = e.pageY - document.querySelector('.datamaps-hoverover').offsetTop+'px';
-          //108, 82 "Default tooltip behaviour"  [2]: https://imgur.com/sSGQrXo "After modifying code"  [3]: https://imgur.com/4Vgjz6o "HTML View when the styles change"
-          // e.pageX - this.offsetLeft
-          //<blockquote class="imgur-embed-pub" lang="en" data-id="a/OR8lg48"><a href="//imgur.com/OR8lg48"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+          let mapHoverSVG = document.querySelector('svg');
+          let point = mapHoverSVG.createSVGPoint();
+          point.x = e.clientX;
+          point.y = e.clientY;
+          let cursor = point.matrixTransform(mapHoverSVG.getScreenCTM().inverse());
+          mapTooltip.style.top = (cursor.y + 16) + "px";
+          console.log(cursor.y);
+          
         }
       }
       
@@ -223,6 +221,7 @@ class App extends Component {
         })
       }
       componentDidMount() {
+        this._onMouseMove();
         this.inIframe();
 
         this.drawMap();
