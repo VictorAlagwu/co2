@@ -14,12 +14,12 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 
 
-for (var x = 0; x < countries.length; x++) {
+for (let x = 0; x < countries.length; x++) {
   countries[x]["newBirth"] = 0;
   countries[x]['newDeath'] = 0;
   countries[x]['garbageProduction'] = 1;
 }
-var windowVisible = true;
+let windowVisible = true;
 
 document.addEventListener("visibilitychange", function() {
   document.visibilityState === "hidden" ? windowVisible = false : windowVisible = true;
@@ -48,7 +48,7 @@ class App extends Component {
     
        // Draw Map
        drawMap = () => {
-        var worldMap = new Datamap ({
+        let worldMap = new Datamap ({
           element: document.getElementById("container"),
           scope: 'world',
           responsive: true,
@@ -114,15 +114,15 @@ class App extends Component {
       
       updateMap = () => {
         if(windowVisible) {
-            var changePopulation = {};
-            for (var x = 0; x < countries.length; x++) {
-                var birthRatePerSec = (countries[x]['birthRate'] * countries[x]['population']) / 31557600000;
-                var deathRatePerSec = (countries[x]['deathRate'] * countries[x]['population']) / 31557600000;
+            let changePopulation = {};
+            for (let x = 0; x < countries.length; x++) {
+                let birthRatePerSec = (countries[x]['birthRate'] * countries[x]['population']) / 31557600000;
+                let deathRatePerSec = (countries[x]['deathRate'] * countries[x]['population']) / 31557600000;
       
-                var randomNumber = Math.random();
+                let randomNumber = Math.random();
                 changePopulation['population'] = countries[x]['population'];
-                var birthHappened = false;
-                var deathHappened = false;
+                let birthHappened = false;
+                let deathHappened = false;
                 if ( randomNumber < birthRatePerSec ) {
                   birthHappened = true;
                 }
@@ -172,11 +172,11 @@ class App extends Component {
           if (window.self !== window.top) {
 
             //Adding CSS Stylesheet to the iframe
-              var cssId = 'myCss';  
+              let cssId = 'myCss';  
               if (!document.getElementById(cssId))
               {
-                  var head  = document.getElementsByTagName('head')[0];
-                  var link  = document.createElement('link');
+                  let head  = document.getElementsByTagName('head')[0];
+                  let link  = document.createElement('link');
                   link.id   = cssId;
                   link.rel  = 'stylesheet';
                   link.type = 'text/css';
