@@ -186,10 +186,10 @@ class App extends Component {
               }
             document.querySelector('.widgetContainer').style.display = 'none';
             document.querySelector('.selectCountriesToShow').style.display = 'none';
-           //TODO: Load 
-            this.setState({
-                noOfCountriesOnTable: 5
-            });
+            //TODO: Load 
+              this.setState({
+                  noOfCountriesOnTable: 5
+              });
 
           } else{ 
           console.log('Not in Iframe');

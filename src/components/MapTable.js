@@ -34,8 +34,8 @@ class MapTable extends Component {
                               ).slice(0, this.props.noOfCountriesOnTable).map(mapList);
       } else {
           listCountries = this.props.countries.sort((a, b) => 
-              (b.garbageProduction.toFixed(2)) - (a.garbageProduction.toFixed(2))
-              ).map(mapList);
+             ((b.garbageProduction * ( b.newBirth - b.newDeath)).toFixed(2)) - ((a.garbageProduction * ( a.newBirth - a.newDeath)).toFixed(2))
+              ).slice(0, this.props.noOfCountriesOnTable).map(mapList);
         }
 
         return (
