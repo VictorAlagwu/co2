@@ -86,7 +86,7 @@ class App extends Component {
           },
           geographyConfig: {
             borderColor: '#808080',
-            highlightOnHover: true,
+            // highlightOnHover: true,
             popupOnHover: true,
             highlightBorderColor: 'white',
             highlightBorderWidth: 2,
@@ -229,7 +229,7 @@ class App extends Component {
         datamapSVG.insertAdjacentHTML('afterbegin', 
                 '<defs>' +
                   '<pattern id="redYellow" width="10" height="10" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">'+ 
-                    '<rect x="0" y="0" width="10" height="10" style="fill:yellow"></rect>'+
+                    '<rect x="0" y="0" width="10" height="10" style="fill:#ffc107"></rect>'+
                     '<line x1="0" y1="0" x2="0" y2="10" style="stroke:red; stroke-width:8"></line>'+
                   '</pattern>'+
                   '</defs>');
